@@ -16,8 +16,8 @@ contract Pub {
 
     function publish(string _title, string _body)
     external
-    returns (uint) {
-        uint index = all.length;
+    returns (uint256) {
+        uint256 index = all.length;
         all.push(Publication(
             msg.sender,
             _title,
@@ -34,13 +34,13 @@ contract Pub {
 
     function publicationCount(address _author)
     external view
-    returns (uint) {
+    returns (uint256) {
         return allByAuthor[_author].length;
     }
 
     function size()
     external view
-    returns (uint) {
+    returns (uint256) {
         return all.length;
     }
 }
