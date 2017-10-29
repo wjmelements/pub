@@ -7,6 +7,7 @@ contract Pub {
         string body;
     }
 
+    mapping (bytes32 => uint256[]) public allByTag;
     mapping (address => uint256[]) public allByAuthor;
     // anonymous by default
     mapping (address => string) public authors;
@@ -32,10 +33,22 @@ contract Pub {
         authors[msg.sender] = _name;
     }
 
+    function tag(uint256 _pubId, bytes32 _tag)
+    external {
+        assert(all[_pubId].source == msg.sender);
+        allByTag[_tag].push(_pubId);
+    }
+
     function publicationCount(address _author)
     external view
     returns (uint256) {
         return allByAuthor[_author].length;
+    }
+
+    function tagCount(bytes32 _tag)
+    external view
+    returns (uint256) {
+        return allByTag[_tag].length;
     }
 
     function size()
