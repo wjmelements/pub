@@ -17,6 +17,7 @@ You should never interact with a contract you do not understand.
 ### Use Mist
 [Install Mist](https://github.com/ethereum/mist/releases) from Github.
 Mist is an open-source Dapp browser specialized for Ethereum.
+To sync faster, enable the "Sync with Light client" option.
 
 ### Obtain a key
 Generate a key for the Ethereum Network.
