@@ -51,7 +51,7 @@ Verify there is no cheaper format for your content.
 Verify there are no errors in your content.
 You will not be able to edit or update your publication.
 
-### Execute sign()
+### Optional: Execute sign()
 If you do not wish to remain anonymous, you may sign your work.
 Beware this will de-anonymize all your other activity with this key.
 
