@@ -9,17 +9,25 @@ Pub is immutable.
 Pub is forever.
 
 ## How to Use Pub
-### Use Mist.
+### Read the contract
+Pub source code is available in `pub.sol`.
+The code is easy to understand and only 46 lines.
+You should never interact with a contract you do not understand.
+Optionally, verify the published contract matches the bytes generated from `solc --bin pub.sol`.
+The output bytes will never change because the compiler version is specified.
+
+### Use Mist
 Install mist from Github.
 Mist is an open-source Dapp browser specialized for Ethereum.
 
 ### Obtain a key
 Generate a key for the Ethereum Network.
-In Pub as in Ethereum, your public key is your identity.
+In Pub as in Ethereum, your private key is your identity.
 Please follow all of the best practices to protect your private key.
+Your publications will be indexed with your public key.
 If you intend to remain anonymous, you may consider generating a new key for every publication.
 
-### Obtain ether.
+### Obtain ether
 Ether is required to pay the cost of every node in the Ethereum Network permanently hosting your content.
 The easiest and most common way to obtain ether is through a currency exchange.
 The more bytes in your publication, the more ether you will need.
@@ -39,6 +47,10 @@ Gas cost is calculable, but not yet automatically calculated.
 Verify there is no cheaper format for your content.
 Verify there are no errors in your content.
 You will not be able to edit or update your publication.
+
+### Execute sign()
+If you do not wish to remain anonymous, you may sign your work.
+Beware this will de-anonymize all your other activity with this key.
 
 ## Contributing
 Optimizations that reduce the cost of publication are welcome. Please create a pull request on Github.
