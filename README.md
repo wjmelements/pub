@@ -10,12 +10,12 @@ Pub is forever.
 
 ## How to Use Pub
 ### Read the contract
-Pub source code is available in `pub.sol`.
+Pub source code is available in [pub.sol](https://github.com/wjmelements/pub/blob/master/pub.sol) and also on [Etherscan](https://etherscan.io/address/0x80d9b122dc3a16fdc41f96cf010ffe7e38d227c3).
 The code is easy to understand and only 46 lines.
 You should never interact with a contract you do not understand.
 
 ### Use Mist
-Install mist from Github.
+[Install Mist](https://github.com/ethereum/mist/releases) from Github.
 Mist is an open-source Dapp browser specialized for Ethereum.
 
 ### Obtain a key
@@ -55,17 +55,19 @@ If you do not wish to remain anonymous, you may sign your work.
 Beware this will de-anonymize all your other activity with this key.
 
 ## Alternative: Using geth
-If you have geth setup, do:
+If you have [geth](https://github.com/ethereum/go-ethereum) setup, do:
 
-> var pub = eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"title","type":"string"},{"name":"body","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]).at('0x80d9b122Dc3a16FdC41f96cF010FFE7e38d227C3')
->
-> title="Your Title"
->
-> body="Your Content"
->
-> personal.unlockAccount(eth.accounts[0])
->
-> pub.publish.sendTransaction(title, body, {from:eth.accounts[0], gas:(180000+680*(title.length+body.length))})
+```javascript
+var pub = eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"title","type":"string"},{"name":"body","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]).at('0x80d9b122Dc3a16FdC41f96cF010FFE7e38d227C3')
+
+title="Your Title"
+
+body="Your Content"
+
+personal.unlockAccount(eth.accounts[0])
+
+pub.publish.sendTransaction(title, body, {from:eth.accounts[0], gas:(180000+680*(title.length+body.length))})
+```
 
 ## Contributing
 Optimizations that reduce the cost of publication are welcome. Please create a pull request on Github.
