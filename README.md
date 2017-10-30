@@ -45,6 +45,7 @@ The output bytes will never change because the compiler version is specified.
 ### Execute publish()
 Be sure to provide enough gas.
 Gas cost is calculable, but not yet automatically calculated.
+The recommended gas is 180,000 + 680 per byte.
 Verify there is no cheaper format for your content.
 Verify there are no errors in your content.
 You will not be able to edit or update your publication.
@@ -52,6 +53,19 @@ You will not be able to edit or update your publication.
 ### Execute sign()
 If you do not wish to remain anonymous, you may sign your work.
 Beware this will de-anonymize all your other activity with this key.
+
+## Alternative: Using geth
+If you have geth setup, do:
+
+> var pub = eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"title","type":"string"},{"name":"body","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]).at('0x80d9b122Dc3a16FdC41f96cF010FFE7e38d227C3')
+>
+> title="Your Title"
+>
+> body="Your Content"
+>
+> personal.unlockAccount(eth.accounts[0])
+>
+> pub.publish.sendTransaction(title, body, {from:eth.accounts[0], gas:(180000+680*(title.length+body.length))})
 
 ## Contributing
 Optimizations that reduce the cost of publication are welcome. Please create a pull request on Github.
