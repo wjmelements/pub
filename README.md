@@ -13,8 +13,6 @@ Pub is forever.
 Pub source code is available in `pub.sol`.
 The code is easy to understand and only 46 lines.
 You should never interact with a contract you do not understand.
-Optionally, verify the published contract matches the bytes generated from `solc --bin pub.sol`.
-The output bytes will never change because the compiler version is specified.
 
 ### Use Mist
 Install mist from Github.
@@ -40,6 +38,9 @@ The ABI is:
 ```
 [{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"title","type":"string"},{"name":"body","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 ```
+
+Optionally, verify the published contract matches the bytes generated from `solc --bin pub.sol`.
+The output bytes will never change because the compiler version is specified.
 
 ### Execute publish()
 Be sure to provide enough gas.
