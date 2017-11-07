@@ -1,5 +1,6 @@
 # Pub
 Pub is a general-purpose publication contract for the Ethereum Network.
+Pub powers Grafiti, a DApp in progress.
 
 ## Why Use Pub
 Pub is the cheapest censorship-resistant publication platform available.
@@ -14,7 +15,12 @@ Pub source code is available in [pub.sol](https://github.com/wjmelements/pub/blo
 The code is easy to understand and only 46 lines.
 You should never interact with a contract you do not understand.
 
-### Use Mist
+### Get a Web 3.0 Capable Web Browser
+
+#### Option: Use Chrome+Metamask
+Metamask is an add-on for Chrome that allows Chrome to interface with Ethereum.
+
+#### Option: Use Mist
 [Install Mist](https://github.com/ethereum/mist/releases) from Github.
 Mist is an open-source Dapp browser specialized for Ethereum.
 To sync faster, enable the "Sync with Light client" option.
@@ -71,6 +77,7 @@ pub.publish.sendTransaction(title, body, {from:eth.accounts[0], gas:(180000+680*
 ```
 
 ## Contributing
+### Pub
 Optimizations that reduce the cost of publication are welcome. Please create a pull request on Github.
 
 Augmentations to the feature set, such as comments, tagging, and tipping, are best implemented as standalone contracts that reference the Pub.

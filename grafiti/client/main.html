@@ -1,0 +1,26 @@
+<head>
+  <title>grafiti</title>
+</head>
+
+<body>
+  <h1>Grafiti</h1>
+
+  {{> info}}
+</body>
+
+<template name="info">
+  <ul class="nav">
+    <li>
+      <button id="prev">Prev</button>
+    </li>
+    <li>
+      <button id="rand">Random</button>
+    </li>
+    <li>
+      <button id="next">Next</button>
+    </li>
+  </ul>
+  <p>Entry #{{index}}</p>
+  <h2>{{title}}</h2>
+  <pre>{{content}}</pre>
+</template>
