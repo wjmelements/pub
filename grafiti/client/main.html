@@ -4,8 +4,12 @@
 
 <body>
   <h1>Grafiti</h1>
-
+  <div id="withoutweb3" hidden>
+  {{> error}}
+  </div>
+  <div id="withweb3">
   {{> info}}
+  </div>
 </body>
 
 <template name="info">
@@ -23,4 +27,7 @@
   <p>Entry #{{index}}</p>
   <h2>{{title}}</h2>
   <pre>{{content}}</pre>
+</template>
+<template name="error">
+  <p class="error">Your browser does not support Web3. If you are using Chrome or Firefox, install the <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">Metamask extension</a>. Alternatively, download the <a href="https://github.com/ethereum/mist/releases">Mist browser</a>.</p>
 </template>

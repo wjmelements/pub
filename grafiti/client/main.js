@@ -3,11 +3,21 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
 
+function setInstanceCurrent(instance, index, result) {
+    instance.index.set(index);
+    instance.title.set(result[1]);
+    instance.content.set(result[2]);
+}
+
 Template.info.onCreated(function helloOnCreated() {
   // counter starts at 0
   this.title = new ReactiveVar("Loading...");
   this.index = new ReactiveVar(0);
   this.content = new ReactiveVar("Loading...");
+  instance=Template.instance();
+  Pub.getLast(function(index, result) {
+    setInstanceCurrent(instance, index, result);
+  });
 });
 
 Template.info.helpers({
@@ -22,12 +32,11 @@ Template.info.helpers({
   }
 });
 
+
 Template.info.events({
   'click button'(event, instance) {
     function setCurrent(index, result) {
-        instance.index.set(index)
-        instance.title.set(result[1]);
-        instance.content.set(result[2]);
+        setInstanceCurrent(instance, index, result);
     }
     switch (event.target.id) {
     case 'rand':
