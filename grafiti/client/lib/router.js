@@ -3,8 +3,6 @@ FlowRouter.route('/', {
     triggersExit: [Index.onExit],
     action: function(params, queryParams) {
         console.log("routed:/");
-        console.log(params);
-        console.log(queryParams);
     }
 });
 FlowRouter.route('/about', {
@@ -12,7 +10,5 @@ FlowRouter.route('/about', {
     triggersExit: [About.onExit],
     action: function(params, queryParams) {
         console.log("routed:/about");
-        console.log(params);
-        console.log(queryParams);
     }
 });

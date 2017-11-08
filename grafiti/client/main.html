@@ -4,13 +4,31 @@
 
 <body>
   <h1>Grafiti</h1>
+  {{> pages}}
   <div id="withoutweb3" hidden>
   {{> error}}
   </div>
   <div id="withweb3">
-  {{> info}}
+    <div id="__blaze-root">
+      {{> main}}
+    </div>
   </div>
 </body>
+
+<template name="main">
+  {{> Template.dynamic template=main}}
+</template>
+
+<template name="pages">
+  <ul class="pages nav">
+    <li>
+      <a href="/">Browse</a>
+    </li>
+    <li>
+      <a href="/about">About</a>
+    </li>
+  </ul>
+</template>
 
 <template name="info">
   <ul class="nav">
@@ -29,6 +47,11 @@
   <p class="author">by <a href={{authorUrl}}>{{authorName}}</a></p>
   <pre class="pubcon">{{content}}</pre>
 </template>
+
+<template name="about">
+  <p>AYY LMAO</p>
+</template>
+
 <template name="error">
   <p class="error">Your browser does not support Web3. If you are using Chrome or Firefox, install the <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">Metamask extension</a>. Alternatively, download the <a href="https://github.com/ethereum/mist/releases">Mist browser</a>.</p>
 </template>
