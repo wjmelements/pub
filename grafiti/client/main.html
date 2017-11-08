@@ -25,8 +25,9 @@
     </li>
   </ul>
   <p>Entry #{{index}}</p>
-  <h2>{{title}}</h2>
-  <pre>{{content}}</pre>
+  <h2 class="pubtit">{{title}}</h2>
+  <p class="author">by <a href={{authorUrl}}>{{authorName}}</a></p>
+  <pre class="pubcon">{{content}}</pre>
 </template>
 <template name="error">
   <p class="error">Your browser does not support Web3. If you are using Chrome or Firefox, install the <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">Metamask extension</a>. Alternatively, download the <a href="https://github.com/ethereum/mist/releases">Mist browser</a>.</p>

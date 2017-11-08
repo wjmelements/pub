@@ -11,3 +11,14 @@ p.error {
   border-radius:15px;
   color:white;
 }
+h2.pubtit {
+  margin-bottom:0px;
+}
+p.author {
+  margin-top:0px;
+}
+pre.pubcon {
+  text-align:left;
+  margin:auto;
+  width:90%;
+}

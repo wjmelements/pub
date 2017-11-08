@@ -7,13 +7,20 @@ function setInstanceCurrent(instance, index, result) {
     instance.index.set(index);
     instance.title.set(result[1]);
     instance.content.set(result[2]);
+    var address=result[0];
+    var name="Anonymous";
+    var authorUrl="https://etherscan.io/address/"+address;
+    instance.authorName.set(name);
+    instance.authorUrl.set(authorUrl);
 }
 
 Template.info.onCreated(function helloOnCreated() {
   // counter starts at 0
   this.title = new ReactiveVar("Loading...");
   this.index = new ReactiveVar(0);
-  this.content = new ReactiveVar("Loading...");
+  this.content = new ReactiveVar("");
+  this.authorUrl = new ReactiveVar("");
+  this.authorName = new ReactiveVar("Anonymous");
   instance=Template.instance();
   Pub.getLast(function(index, result) {
     setInstanceCurrent(instance, index, result);
@@ -29,7 +36,13 @@ Template.info.helpers({
   },
   content() {
     return Template.instance().content.get();
-  }
+  },
+  authorName() {
+    return Template.instance().authorName.get();
+  },
+  authorUrl() {
+    return Template.instance().authorUrl.get();
+  },
 });
 
 
