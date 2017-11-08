@@ -22,3 +22,19 @@ pre.pubcon {
   margin:auto;
   width:90%;
 }
+ul.pages li {
+  display:table-cell;
+  text-align:center;
+  background-color:#ebf3ff;
+  border-style:solid;
+  border-color:black;
+  padding:4px;
+  border-radius:0px;
+  border-width:thin;
+}
+ul.pages {
+  width:100%;
+  margin:0px;
+  padding:0px;
+  display:table;
+}

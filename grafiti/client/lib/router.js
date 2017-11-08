@@ -12,3 +12,10 @@ FlowRouter.route('/about', {
         console.log("routed:/about");
     }
 });
+FlowRouter.route('/Submit', {
+    triggersEnter: [Submit.onEnter],
+    triggersExit: [Submit.onExit],
+    action: function(params, queryParams) {
+        console.log("routed:/about");
+    }
+});
