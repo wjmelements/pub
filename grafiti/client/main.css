@@ -5,7 +5,6 @@ ul.nav li {
   display:inline;
 }
 p.error {
-  display:inline;
   background-color:#ff5858;
   padding:15px;
   border-radius:15px;
