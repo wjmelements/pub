@@ -8,19 +8,25 @@ function setInstanceCurrent(instance, index, result) {
     instance.title.set(result[1]);
     instance.content.set(result[2]);
     var address=result[0];
-    var name="Anonymous";
-    var authorUrl="https://etherscan.io/address/"+address;
+    var name="Loading...";// TODO maybe use spinner?
     instance.authorName.set(name);
+    Pub.getAuthorName(address, function(address, name) {
+        if (name === undefined || name == "") {
+            name = "Anonymous";
+        }
+        instance.authorName.set(name);
+    });
+    var authorUrl="https://etherscan.io/address/"+address;
     instance.authorUrl.set(authorUrl);
 }
 
 Template.info.onCreated(function helloOnCreated() {
-  // counter starts at 0
+  // TODO loading appearance
   this.title = new ReactiveVar("Loading...");
   this.index = new ReactiveVar(0);
   this.content = new ReactiveVar("");
   this.authorUrl = new ReactiveVar("");
-  this.authorName = new ReactiveVar("Anonymous");
+  this.authorName = new ReactiveVar("Loading...");
   instance=Template.instance();
   Pub.getLast(function(index, result) {
     setInstanceCurrent(instance, index, result);

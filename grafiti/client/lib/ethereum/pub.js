@@ -14,6 +14,7 @@ var onSize = [];
 var pub_size = -1;
 // TODO intelligent caching
 var pub_map = {};
+var author_map = {};
 function fetchSize() {
     console.log("Fetching Pub size");
     pub.size(function (error, result) {
@@ -36,6 +37,16 @@ function fetchPub(index, resultFn) {
         }
         pub_map[index] = result
         resultFn(index, result)
+    });
+}
+
+function fetchAuthor(address, resultFn) {
+    pub.authors(address, function (error, result) {
+        if (error) {
+            console.log(error);
+        }
+        author_map[address] = result;
+        resultFn(address, result);
     });
 }
 
@@ -66,5 +77,13 @@ Pub = {
             return;
         }
         return Pub.get(pub_size - 1, resultFn);
+    },
+    getAuthorName: function(address, resultFn) {
+        result = author_map[address];
+        if (result != undefined) {
+            resultFn(address, result);
+            return;
+        }
+        fetchAuthor(address, resultFn);
     },
 }
