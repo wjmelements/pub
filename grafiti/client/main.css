@@ -27,9 +27,13 @@ ul.pages li {
   background-color:#ebf3ff;
   border-style:solid;
   border-color:black;
-  padding:4px;
   border-radius:0px;
   border-width:thin;
+}
+ul.pages a {
+  padding:4px;
+  display:block;
+  text-decoration:none;
 }
 ul.pages {
   width:100%;
