@@ -40,10 +40,17 @@ function updateButtons() {
     var nextButton = document.getElementById("next");
     if (nextButton != null) {
       var prevButton = document.getElementById("prev");
-      nextButton.enabled= index + 1 < Pub.size();
-      nextButton.href="/browse/"+(index+1);
-      prevButton.enabled= index - 1 >= 0;
-      prevButton.href="/browse/"+(index-1);
+      // FIXME Pub.size() can be -1 here
+      if (index + 1 < Pub.size()) {
+        nextButton.href = "/browse/"+(index+1);
+      } else {
+        nextButton.removeAttribute('href');
+      }
+      if (index - 1 >= 0) {
+        prevButton.href = "/browse/"+(index-1);
+      } else {
+        prevButton.removeAttribute('href');
+      }
     }
 }
 
