@@ -57,9 +57,14 @@ Pub = {
     fetchSize: function() {
         fetchSize();
     },
-    getRandom: function(resultFn) {
-        index=Math.floor(Math.random() * Pub.size())
-        return Pub.get(index, resultFn)
+    getRandomIndex: function(resultFn) {
+        if (pub_size == -1) {
+            onSize.push(function() {
+                Pub.getRandomIndex(resultFn);
+            });
+        }
+        index=Math.floor(Math.random() * pub_size);
+        resultFn(index);
     },
     get: function(index, resultFn) {
         result=pub_map[index]
