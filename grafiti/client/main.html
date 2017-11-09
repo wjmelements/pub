@@ -36,8 +36,7 @@
 <template name="info">
   <h2 class="pubtit inline">{{title}}</h2>
   <p class="inline">#{{index}}</p>
-  <p class="author">by <a href={{authorUrl}}>{{authorName}}</a></p>
-  <ul class="nav">
+  <ul class="nav inline">
     <li>
       <button id="prev">Prev</button>
     </li>
@@ -48,6 +47,7 @@
       <button id="next">Next</button>
     </li>
   </ul>
+  <p class="author">by <a href={{authorUrl}}>{{authorName}}</a></p>
   <pre class="pubcon">{{content}}</pre>
 </template>
 
