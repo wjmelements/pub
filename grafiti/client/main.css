@@ -1,3 +1,9 @@
+.inline {
+  display:inline;
+}
+h1 {
+  margin-bottom:0px;
+}
 ul.nav {
   list-style-type:none;
 }
