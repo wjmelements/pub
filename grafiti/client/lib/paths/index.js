@@ -22,17 +22,33 @@ function setCurrentIndex(index, result) {
     instance_title.set(result[1]);
     instance_content.set(result[2]);
     var address=result[0];
+    instance_authorAddress.set(address);
     var name="Loading...";// TODO maybe use spinner?
     instance_authorName.set(name);
+    setAuthorName();
+    var authorUrl="https://"+networkPrefix()+"etherscan.io/address/"+address;
+    instance_authorUrl.set(authorUrl);
+    updateButtons();
+}
+
+function setAuthorName() {
+    var address = instance_authorAddress.get();
     Pub.getAuthorName(address, function(address, name) {
         if (name === undefined || name == "") {
             name = "Anonymous";
         }
         instance_authorName.set(name);
     });
-    var authorUrl="https://"+networkPrefix()+"etherscan.io/address/"+address;
-    instance_authorUrl.set(authorUrl);
-    updateButtons();
+}
+
+function onAuthorMouseover() {
+    if (instance_authorName.get() == "Anonymous") {
+        instance_authorName.set(instance_authorAddress.get());
+    }
+}
+
+function onAuthorMouseout() {
+    setAuthorName();
 }
 
 function updateButtons() {
@@ -59,6 +75,7 @@ var instance_title = new ReactiveVar("Loading...")
 var instance_index = new ReactiveVar(0);
 var instance_content = new ReactiveVar("");
 var instance_authorName = new ReactiveVar("Loading...");
+var instance_authorAddress = new ReactiveVar("");
 var instance_authorUrl = new ReactiveVar("");
 
 Template.info.onCreated(function () {
@@ -87,4 +104,13 @@ Template.info.helpers({
   authorUrl() {
     return instance_authorUrl.get();
   },
+});
+
+Template.info.events({
+    'mouseover #info-author'(event) {
+        onAuthorMouseover();
+    },
+    'mouseout #info-author'(event) {
+        onAuthorMouseout();
+    },
 });
