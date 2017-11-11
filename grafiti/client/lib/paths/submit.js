@@ -40,6 +40,64 @@ function onChangeTitle() {
     instance_preview_title.innerHTML = title;
 }
 
+function strToBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = b64Data;
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+}
+
+function isImg(fileName) {
+    var periodIndex = fileName.lastIndexOf('.');
+    var suffix = fileName.substr(periodIndex+1);
+    switch (suffix) {
+        case "jpg":
+        case "jpeg":
+        case "png":
+            // TODO add more
+            return true;
+        default:
+            return false;
+    }
+}
+
+function onChangeFile() {
+    var fileSubmitter = document.getElementById('submit-file');
+    var reader = new FileReader();
+    var file = fileSubmitter.files[0];
+    console.log(file);
+    reader.onload = function() {
+        var arrayBuffer = this.result;
+        console.log("onload");
+        var array = new Uint8Array(arrayBuffer);
+        var binaryString = String.fromCharCode.apply(null, array);
+        instance_content.value = binaryString;
+        if (isImg(file.name)) {
+            document.getElementById('submit-preview-img').src = window.URL.createObjectURL(strToBlob(binaryString));
+        }
+    };
+    reader.readAsArrayBuffer(file);
+    instance_title.value = file.name;
+    instance_content.value = "Loading...";
+}
+
 Template.submit.events({
     'click input#submit-submit'(event) {
         var title=instance_title.value;
@@ -48,6 +106,7 @@ Template.submit.events({
             console.log("Skipping empty submission");
             return;
         } 
+        console.log("publication size: " + content.length);
         Pub.publish(title, content, function(result) {
             console.log("Transaction hash: " + result);
             clearSubmission();
@@ -65,5 +124,8 @@ Template.submit.events({
     },
     'change #submit-title'(event) {
         onChangeTitle();
+    },
+    'change #submit-file'(event) {
+        onChangeFile();
     },
 });
