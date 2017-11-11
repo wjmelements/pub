@@ -63,7 +63,7 @@ textarea#submit-content {
   width:90%;
   padding:1em;
 }
-pre#submit-preview {
+pre.pubcon {
   width:90%;
   margin:0px auto;
   padding:1em;
