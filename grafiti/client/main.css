@@ -32,11 +32,6 @@ h2.pubtit {
 p.author {
   margin-top:0px;
 }
-pre.pubcon {
-  text-align:left;
-  margin:auto;
-  width:90%;
-}
 ul.pages li {
   display:table-cell;
   text-align:center;
@@ -64,6 +59,7 @@ textarea#submit-content {
   padding:1em;
 }
 pre.pubcon {
+  text-align:left;
   width:90%;
   margin:0px auto;
   padding:1em;
