@@ -30,7 +30,7 @@ function setCurrentIndex(index, result) {
         }
         instance_authorName.set(name);
     });
-    var authorUrl="https://etherscan.io/address/"+address;
+    var authorUrl="https://"+networkPrefix()+"etherscan.io/address/"+address;
     instance_authorUrl.set(authorUrl);
     updateButtons();
 }

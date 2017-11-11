@@ -22,7 +22,7 @@ function fetchSize() {
     console.log("Fetching Pub size");
     pub.size(function (error, result) {
         if (error) {
-            console.log(error);
+            console.error(error);
             return;
         }
         pub_size = result.c[0]
@@ -35,7 +35,7 @@ function fetchSize() {
 function fetchPub(index, resultFn) {
     pub.all(index, function (error, result) {
         if (error) {
-            console.log(error);
+            console.error(error);
             return;
         }
         pub_map[index] = result
@@ -46,10 +46,21 @@ function fetchPub(index, resultFn) {
 function fetchAuthor(address, resultFn) {
     pub.authors(address, function (error, result) {
         if (error) {
-            console.log(error);
+            console.error(error);
+            return;
         }
         author_map[address] = result;
         resultFn(address, result);
+    });
+}
+
+function executePublish(title, content, resultFn) {
+    pub.publish(title, content, function (error, result) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        resultFn(result);
     });
 }
 
@@ -94,4 +105,7 @@ Pub = {
         }
         fetchAuthor(address, resultFn);
     },
+    publish: function(title, content, resultFn) {
+        executePublish(title, content, resultFn);
+    }
 }

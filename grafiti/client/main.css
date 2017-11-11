@@ -14,6 +14,12 @@ ul.nav {
 ul.nav li {
   display:inline;
 }
+p.success {
+  background-color:#6fbf97;
+  padding:15px;
+  border-radius:15px;
+  color:white;
+}
 p.error {
   background-color:#ff5858;
   padding:15px;
@@ -50,4 +56,19 @@ ul.pages {
   margin:0px;
   padding:0px;
   display:table;
+}
+textarea#submit-content {
+  display:block;
+  margin:0px auto;
+  width:90%;
+  padding:1em;
+}
+pre#submit-preview {
+  width:90%;
+  margin:0px auto;
+  padding:1em;
+  background-color:#ebf3ff;
+  border-color:black;
+  border-width:thin;
+  border-style:solid;
 }
