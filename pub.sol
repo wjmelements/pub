@@ -1,10 +1,10 @@
-pragma solidity ^0.4.16;
+pragma solidity ^0.4.18;
 
 contract Pub {
     struct Publication {
         address source;
         string title;
-        string body;
+        bytes body;
     }
 
     mapping (address => uint256[]) public allByAuthor;
@@ -14,7 +14,7 @@ contract Pub {
 
     function Pub() public { }
 
-    function publish(string _title, string _body)
+    function publish(string _title, bytes _body)
     external
     returns (uint256) {
         uint256 index = all.length;
