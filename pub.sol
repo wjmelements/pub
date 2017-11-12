@@ -3,7 +3,9 @@ pragma solidity ^0.4.18;
 contract Pub {
     struct Publication {
         address source;
+        uint256 timestamp;
         string title;
+        // must be bytes in order to support files
         bytes body;
     }
 
@@ -14,14 +16,29 @@ contract Pub {
 
     function Pub() public { }
 
-    function publish(string _title, bytes _body)
+    function publishBytes(string _title, bytes _body)
     external
     returns (uint256) {
         uint256 index = all.length;
         all.push(Publication(
             msg.sender,
+            now,
             _title,
             _body
+        ));
+        allByAuthor[msg.sender].push(index);
+        return index;
+    }
+
+    function publish(string _title, string _body)
+    external
+    returns (uint256) {
+        uint256 index = all.length;
+        all.push(Publication(
+            msg.sender,
+            now,
+            _title,
+            bytes(_body)
         ));
         allByAuthor[msg.sender].push(index);
         return index;
