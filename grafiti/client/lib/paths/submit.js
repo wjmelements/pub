@@ -10,11 +10,16 @@ Submit = {
 
 var instance_title;
 var instance_content;
-var instance_preview;
+var instance_preview = new ReactiveVar('');
 var instance_preview_title;
 function clearSubmission() {
+    console.log('clearSubmission');
+    fileBytes = undefined;
     instance_title.value = '';
     instance_content.value = '';
+    document.getElementById('submit-file').value = '';
+    document.getElementById('submit-preview-img').removeAttribute('src');
+    instance_content.removeAttribute('readonly');
 }
 function showTransactionHash(hash) {
     document.getElementById('onSuccess').hidden = false;
@@ -24,15 +29,22 @@ function showTransactionHash(hash) {
 Template.submit.onRendered(function () {
     instance_title = document.getElementById('submit-title');
     instance_content = document.getElementById('submit-content');
-    instance_preview = document.getElementById('submit-preview');
     instance_preview_title = document.getElementById('submit-preview-title');
 });
 
 var fileBytes;
 function onChange() {
-    fileBytes = undefined;
-    instance_preview.innerHTML = instance_content.value;
+    if (fileBytes != undefined) {
+        return;
+    }
+    instance_preview.set(instance_content.value);
 }
+
+Template.submit.helpers({
+  preview() {
+    return instance_preview.get();
+  }
+});
 
 function onChangeTitle() {
     var title = instance_title.value;
@@ -68,9 +80,12 @@ function strToBlob(b64Data, contentType, sliceSize) {
 
 function onChangeFile() {
     var fileSubmitter = document.getElementById('submit-file');
-    var reader = new FileReader();
     var file = fileSubmitter.files[0];
     console.log(file);
+    if (file == undefined) {
+        return;
+    }
+    var reader = new FileReader();
     reader.onload = function() {
         var arrayBuffer = this.result;
         console.log("onload");
@@ -79,13 +94,19 @@ function onChangeFile() {
         var binaryString = String.fromCharCode.apply(null, array);
         fileBytes = binaryString;
         instance_content.value = binaryString;
+        instance_content.setAttributeNode(document.createAttribute('readonly'));
         if (Media.isImg(file.name)) {
             document.getElementById('submit-preview-img').src = window.URL.createObjectURL(strToBlob(binaryString));
+            instance_preview.set('');
+        } else {
+            instance_preview.set(binaryString);
         }
     };
     reader.readAsArrayBuffer(file);
     instance_title.value = file.name;
+    onChangeTitle();
     instance_content.value = "Loading...";
+    onChange();
 }
 
 Template.submit.events({
@@ -127,5 +148,8 @@ Template.submit.events({
     },
     'change #submit-file'(event) {
         onChangeFile();
+    },
+    'click input#submit-reset'(event) {
+        clearSubmission();
     },
 });
