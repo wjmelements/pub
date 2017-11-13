@@ -6,6 +6,7 @@ Media = {
             case "jpg":
             case "jpeg":
             case "png":
+            case "webp":
                 // TODO add more
                 return true;
             default:
@@ -22,6 +23,8 @@ Media = {
                 return "image/jpeg";
             case "png":
                 return "image/png";
+            case "webp":
+                return "image/webp";
             default:
                 console.log("unknown content type for " + suffix);
                 return;
