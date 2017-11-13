@@ -57,6 +57,7 @@ textarea#submit-content {
   margin:0px auto;
   width:90%;
   padding:1em;
+  border-radius:0.5em;
 }
 pre.pubcon {
   display:inline-block;
@@ -68,4 +69,5 @@ pre.pubcon {
   border-color:grey;
   border-width:thin;
   border-style:solid;
+  border-radius:0.5em;
 }
