@@ -73,13 +73,16 @@
 </template>
 
 <template name="about">
+  <p>
+    Grafiti lets you scratch anything you want into the blockchain. You only pay a one-time network fee. Ethereum will preserve it forever.
+  </p>
   <h3>What is Ethereum?</h3>
     <p>      
       Ethereum is the second-most valuable cryptocurrency network in terms of market capitalization, behind Bitcoin.
       It differs from Bitcoin in several ways, the most important being that its smart contracts are <a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing Complete</a>.
-      This means smart contracts can be used for arbitrary purposes.
+      This means smart contracts are general-purpose programs.
       Code deployed to Ethereum is immutable, so the terms of contracts never change.
-      All transactions are public record on the <a href="https://en.wikipedia.org/wiki/Blockchain">blockchain</a>, so they are verified and auditable.
+      All code and code execution is auditable public record on the <a href="https://en.wikipedia.org/wiki/Blockchain">blockchain</a>.
       Identity and privacy are protected via <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">public key cryptography</a>.
     </p>
     <p>
@@ -91,6 +94,7 @@
       It facilitates arbitrary publication.
       Everything published through Pub will be replicated by Ethereum indefinitely.
       Pub is immutable.
+      Pub is uncensorable.
       Pub is forever.
     </p>
     <p>
@@ -100,9 +104,10 @@
     <p>
       Grafiti is a serverless front-end for Pub.
       Data requests are handled by the decentralized Ethereum Network.
+      Along with the Ethereum and Pub, Grafiti is <a href="https://github.com/wjmelements/pub/">open source</a>, so anyone can help with development, even you.
     </p>
 </template>
 
 <template name="error">
-  <p class="error">Your browser does not support Web3. If you are using Chrome or Firefox, install the <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">Metamask extension</a>. Alternatively, download the <a href="https://github.com/ethereum/mist/releases">Mist browser</a>.</p>
+  <p class="error">Your browser does not support Web3. Web 3.0 support is required to interact with Ethereum. If you are using Chrome or Firefox, install the <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">Metamask extension</a>. Alternatively, download the <a href="https://github.com/ethereum/mist/releases">Mist browser</a>.</p>
 </template>
