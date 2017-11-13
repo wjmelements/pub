@@ -1,14 +1,12 @@
-var hasEnteredIndex=false;
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
         if (context.path.startsWith('/browse/')) {
             var index = parseInt(context.path.substring(8));
             Pub.get(index, setCurrentIndex);
-        } else if (!hasEnteredIndex) {
+        } else {
             Pub.getLast(setCurrentIndex);
         }
-        hasEnteredIndex = true;
         BlazeLayout.render('main', { main: "info" });
     },
     onExit: function(context) {
@@ -46,12 +44,17 @@ function bytesToBlob(bytes, sliceSize, contentType) {
     return blob;
 }
 
+var onRendered=[];
 function setCurrentIndex(index, result) {
     console.log("setCurrentIndex("+index+")");
     instance_index.set(index);
     instance_title.set(result[2]);
     console.log(result);
     var imgView=document.getElementById('pubconimg');
+    if (imgView == undefined) {
+        onRendered.push(function() { setCurrentIndex(index, result)});
+        return;
+    }
     if (Media.isImg(result[2])) {
         console.log("img");
         imgView.src = window.URL.createObjectURL(bytesToBlob(result[3]), Media.contentType(result[2]));
@@ -129,6 +132,9 @@ Template.info.onCreated(function () {
 Template.info.onRendered(function () {
     console.log("onRendered");
     updateButtons();
+    while (onRendered.length > 0) {
+        onRendered.pop()();
+    }
 });
 
 Template.info.helpers({
