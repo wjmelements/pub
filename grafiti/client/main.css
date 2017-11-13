@@ -59,8 +59,9 @@ textarea#submit-content {
   padding:1em;
 }
 pre.pubcon {
+  display:inline-block;
   text-align:left;
-  width:90%;
+  max-width:90%;
   margin:0px auto;
   padding:1em;
   background-color:#ebf3ff;
