@@ -52,10 +52,18 @@ function bytesToBlob(bytes, sliceSize, contentType) {
 }
 
 var onRendered=[];
+function hidePubContentError() {
+    var pubconerr= document.getElementById('pubconerr');
+    if (pubconerr == undefined) {
+        // if not yet renderd, will render as hidden
+        return;
+    }
+    pubconerr.hidden = true;
+}
 function setCurrentIndex(index, result) {
     console.log("setCurrentIndex("+index+")");
-    document.getElementById('pubconerr').hidden=true;
     content_error.set('');
+    hidePubContentError();
     instance_index.set(index);
     instance_title.set(result[2]);
     console.log(result);
@@ -152,7 +160,6 @@ Template.info.onRendered(function () {
         document.getElementById('pubconerr').hidden=false;
         content_error.set("Failed to load image." + Media.contentHelp(instance_title.get()));
     });
-    document.getElementById('pubconerr').hidden=true;
     while (onRendered.length > 0) {
         onRendered.pop()();
     }
