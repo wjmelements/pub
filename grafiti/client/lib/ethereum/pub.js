@@ -10,7 +10,7 @@ window.addEventListener('load', function() {
 if (typeof web3 === 'object')
 {
 
-pub = web3.eth.contract([ { "constant": true, "inputs": [ { "name": "", "type": "address" }, { "name": "", "type": "uint256" } ], "name": "allByAuthor", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "uint256" } ], "name": "all", "outputs": [ { "name": "source", "type": "address", "value": "0x4a6f6b9ff1fc974096f9063a45fd12bd5b928ad1" }, { "name": "title", "type": "string", "value": "aware" }, { "name": "body", "type": "string", "value": "we are cognition\nwe are aware we are cognition\nwe prefer cognition to oblivion\nmost are oblivious\nwe are aware\nso we must save them\nas many as possible\n as soon as we can" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_name", "type": "string" } ], "name": "sign", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "size", "outputs": [ { "name": "", "type": "uint256", "value": "2" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "_author", "type": "address" } ], "name": "publicationCount", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "authors", "outputs": [ { "name": "", "type": "string", "value": "" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_title", "type": "string" }, { "name": "_body", "type": "string" } ], "name": "publish", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" } ]).at('0x80d9b122Dc3a16FdC41f96cF010FFE7e38d227C3')
+pub = web3.eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"timestamp","type":"uint256"},{"name":"title","type":"string"},{"name":"body","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"bytes"}],"name":"publishBytes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]).at('0xC68794C3C55e62b4D65291B6E061Ccf5ee678CF5')
 
 } // web3
 var onSize = [];
@@ -33,6 +33,7 @@ function fetchSize() {
 }
 
 function fetchPub(index, resultFn) {
+    console.log(index);
     pub.all(index, function (error, result) {
         if (error) {
             console.error(error);
@@ -44,6 +45,7 @@ function fetchPub(index, resultFn) {
 }
 
 function fetchAuthor(address, resultFn) {
+    console.log(address);
     pub.authors(address, function (error, result) {
         if (error) {
             console.error(error);
@@ -56,6 +58,16 @@ function fetchAuthor(address, resultFn) {
 
 function executePublish(title, content, resultFn) {
     pub.publish(title, content, function (error, result) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        resultFn(result);
+    });
+}
+
+function executePublishBytes(title, content, resultFn) {
+    pub.publishBytes(title, content, function (error, result) {
         if (error) {
             console.error(error);
             return;
@@ -105,7 +117,6 @@ Pub = {
         }
         fetchAuthor(address, resultFn);
     },
-    publish: function(title, content, resultFn) {
-        executePublish(title, content, resultFn);
-    }
+    publish: executePublish,
+    publishBytes: executePublishBytes,
 }

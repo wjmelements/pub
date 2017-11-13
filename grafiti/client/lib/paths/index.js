@@ -16,11 +16,54 @@ Index = {
     },
 };
 
+function bytesToStr(bytes) {
+    var str = "";
+    for (var i = 2; i < bytes.length; i+=2) {
+        str += String.fromCharCode(parseInt(bytes.substring(i, i+2), 16));
+    }
+    return str;
+}
+
+function bytesToBlob(bytes, sliceSize, contentType) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 2048;
+
+    var byteCharacters = bytes;
+    var byteArrays = [];
+    for (var offset = 2; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length/2);
+        for (var i = 0; i < slice.length; i+=2) {
+            byteNumbers[i/2] = parseInt(slice.substring(i,i+2), 16);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+    var blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+}
+
 function setCurrentIndex(index, result) {
     console.log("setCurrentIndex("+index+")");
     instance_index.set(index);
-    instance_title.set(result[1]);
-    instance_content.set(result[2]);
+    instance_title.set(result[2]);
+    console.log(result);
+    var imgView=document.getElementById('pubconimg');
+    if (Media.isImg(result[2])) {
+        console.log("img");
+        imgView.src = window.URL.createObjectURL(bytesToBlob(result[3]), Media.contentType(result[2]));
+        imgView.hidden=false;
+        instance_content.set(undefined);
+    } else {
+        console.log("not img");
+        imgView.removeAttribute('src');
+        imgView.hidden=true;
+        instance_content.set(bytesToStr(result[3]));
+    }
+    
     var address=result[0];
     instance_authorAddress.set(address);
     var name="Loading...";// TODO maybe use spinner?
