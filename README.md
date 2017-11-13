@@ -11,7 +11,7 @@ Pub is forever.
 
 ## How to Use Pub
 ### Read the contract
-Pub source code is available in [pub.sol](https://github.com/wjmelements/pub/blob/master/pub.sol) and also on [Etherscan](https://etherscan.io/address/0x80d9b122dc3a16fdc41f96cf010ffe7e38d227c3).
+Pub source code is available in [pub.sol](https://github.com/wjmelements/pub/blob/master/pub.sol) and also on [Etherscan](https://etherscan.io/address/0x2a0f713aA953442EacA9EA47083f656170e67BA4).
 The code is easy to understand and only 46 lines.
 You should never interact with a contract you do not understand.
 
@@ -39,7 +39,7 @@ The more bytes in your publication, the more ether you will need.
 
 ### Locate Pub
 In Mist, go to Contracts > Watch Contract.
-Pub is currently located at `0x80d9b122Dc3a16FdC41f96cF010FFE7e38d227C3`.
+Pub is currently located at `0x2a0f713aA953442EacA9EA47083f656170e67BA4`.
 The ABI is:
 
 ```
@@ -65,7 +65,7 @@ Beware this will de-anonymize all your other activity with this key.
 If you have [geth](https://github.com/ethereum/go-ethereum) setup, do:
 
 ```javascript
-var pub = eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"title","type":"string"},{"name":"body","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]).at('0x80d9b122Dc3a16FdC41f96cF010FFE7e38d227C3')
+var pub = eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"timestamp","type":"uint256"},{"name":"title","type":"string"},{"name":"body","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"bytes"}],"name":"publishBytes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]).at('0x2a0f713aA953442EacA9EA47083f656170e67BA4')
 
 title="Your Title"
 
