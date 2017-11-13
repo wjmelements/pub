@@ -37,7 +37,7 @@ ul.pages li {
   text-align:center;
   background-color:#ebf3ff;
   border-style:solid;
-  border-color:black;
+  border-color:grey;
   border-radius:0px;
   border-width:thin;
 }
@@ -64,7 +64,7 @@ pre.pubcon {
   margin:0px auto;
   padding:1em;
   background-color:#ebf3ff;
-  border-color:black;
+  border-color:grey;
   border-width:thin;
   border-style:solid;
 }

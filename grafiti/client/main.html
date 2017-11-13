@@ -32,9 +32,7 @@
 </template>
 
 <template name="info">
-  <h2 class="pubtit inline">{{title}}</h2>
-  <p class="inline">#{{index}}</p>
-  <ul class="nav inline">
+  <ul class="pages nav">
     <li>
       <a id="prev" href="/">Prev</a>
     </li>
@@ -45,6 +43,8 @@
       <a id="next" href="/">Next</a>
     </li>
   </ul>
+  <h2 class="pubtit inline">{{title}}</h2>
+  <p class="inline">#{{index}}</p>
   <p class="author">by <a id='info-author' href={{authorUrl}}>{{authorName}}</a></p>
   <pre class="pubcon">{{content}}<img id="pubconimg"/></pre>
 </template>
