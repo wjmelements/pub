@@ -1,6 +1,13 @@
+var redirectedOnce = false;
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
+        if (!redirectedOnce && typeof web3 == "undefined") {
+            redirectedOnce = true;
+            console.log("redirecting?");
+            redirect("/about");
+            return;
+        }
         if (context.path.startsWith('/browse/')) {
             var index = parseInt(context.path.substring(8));
             Pub.get(index, setCurrentIndex);
@@ -47,6 +54,8 @@ function bytesToBlob(bytes, sliceSize, contentType) {
 var onRendered=[];
 function setCurrentIndex(index, result) {
     console.log("setCurrentIndex("+index+")");
+    document.getElementById('pubconerr').hidden=true;
+    content_error.set('');
     instance_index.set(index);
     instance_title.set(result[2]);
     console.log(result);
@@ -123,6 +132,7 @@ var instance_content = new ReactiveVar("");
 var instance_authorName = new ReactiveVar("Loading...");
 var instance_authorAddress = new ReactiveVar("");
 var instance_authorUrl = new ReactiveVar("");
+var content_error = new ReactiveVar("");
 
 Template.info.onCreated(function () {
     console.log("onCreated");
@@ -132,6 +142,17 @@ Template.info.onCreated(function () {
 Template.info.onRendered(function () {
     console.log("onRendered");
     updateButtons();
+    var imgView=document.getElementById('pubconimg');
+    imgView.addEventListener('load', function() {
+        console.log("img loaded");
+    });
+    imgView.addEventListener('error', function(e) {
+        console.log("img load error");
+        console.error(e);
+        document.getElementById('pubconerr').hidden=false;
+        content_error.set("Failed to load image." + Media.contentHelp(instance_title.get()));
+    });
+    document.getElementById('pubconerr').hidden=true;
     while (onRendered.length > 0) {
         onRendered.pop()();
     }
@@ -152,6 +173,9 @@ Template.info.helpers({
   },
   authorUrl() {
     return instance_authorUrl.get();
+  },
+  contentError() {
+    return content_error.get();
   },
 });
 
