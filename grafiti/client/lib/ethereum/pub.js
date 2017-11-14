@@ -19,6 +19,8 @@ var pub_size = -1;
 // TODO intelligent caching
 var pub_map = {};
 var author_map = {};
+var pubcount_map = {};
+var author_imap = {};
 function fetchSize() {
     console.log("Fetching Pub size");
     pub.size(function (error, result) {
@@ -54,6 +56,33 @@ function fetchAuthor(address, resultFn) {
         }
         author_map[address] = result;
         resultFn(address, result);
+    });
+}
+
+function fetchPublicationCount(address, resultFn) {
+    pub.publicationCount(address, function (error, result) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        pubcount_map[address] = result;
+        var emptyArray = [];
+        console.log(result);
+        emptyArray.length = result;
+        author_imap[address] = emptyArray;
+        resultFn(result);
+    });
+}
+
+function fetchPublicationIndex(address, index, resultFn) {
+    pub.allByAuthor(address, index, function (error, result) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        console.log(result);
+        pubcount_map[address][index] = result;
+        resultFn(result);
     });
 }
 
@@ -117,6 +146,28 @@ Pub = {
             return;
         }
         fetchAuthor(address, resultFn);
+    },
+    getAuthorPublicationCount: function(address, resultFn) {
+        result = pubcount_map[address];
+        if (result != undefined) {
+            resultFn(address, result);
+            return;
+        }
+        fetchPublicationCount(address, resultFn);
+    },
+    getAuthorPublicationIndex: function (address, index, resultFn) {
+        resultArray = author_imap[address];
+        if (result == undefined) {
+            Pub.getAuthorPublicationCount(address, function(count) {
+                getAuthorPublicationIndex(address, index, resultFn);
+            });
+            return;
+        }
+        if (resultArray[index] != undefined) {
+            resultFn(resultArray[index]);
+            return;
+        }
+        fetchPublicationIndex(address, index, resultFn);
     },
     publish: executePublish,
     publishBytes: executePublishBytes,
