@@ -1,6 +1,9 @@
 .inline {
   display:inline;
 }
+.hidden {
+  display:none;
+}
 ul.inline {
   display:inline-table;
   margin:0px;

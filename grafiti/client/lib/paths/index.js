@@ -1,6 +1,6 @@
 var redirectedOnce = false;
 var filterAuthor = null;
-var filterAuthorIndex = 0;
+var filterAuthorIndex = new ReactiveVar(0);
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
@@ -11,7 +11,7 @@ Index = {
         }
         var path = context.path;
         if (path.startsWith('/browse/')) {
-            filterAuthor=null;
+            filterAuthor = null;
             var index = parseInt(context.path.substring(8));
             Pub.get(index, setCurrentIndex);
         } else if (path.startsWith('/source/')) {
@@ -19,23 +19,23 @@ Index = {
             
             var source = path.substring(8, slashLoc == -1 ? undefined : slashLoc);
 
-            filterAuthor=source;
+            filterAuthor = source;
             if (slashLoc == -1) {
                 Pub.getAuthorPublicationCount(source, function(address, count) {
-                    filterAuthorIndex=count-1;
+                    filterAuthorIndex.set(count-1);
                     updateButtons();
                     Pub.getLastBy(source, setCurrentIndex);
                 });
             } else {
                 var index = parseInt(path.substring(slashLoc + 1));
-                filterAuthorIndex = index;
+                filterAuthorIndex.set(index);
                 Pub.getAuthorPublicationIndex(source,index, function(address, index) {
                     Pub.get(index, setCurrentIndex);
                 });
             }
         } else {
-            filterAuthor=null;
-            filterAuthorIndex = 0;
+            filterAuthor = null;
+            filterAuthorIndex.set(0);
             Pub.getLast(setCurrentIndex);
         }
         BlazeLayout.render('main', { main: "info" });
@@ -122,7 +122,11 @@ function setAuthorName() {
     var address = instance_authorAddress.get();
     Pub.getAuthorName(address, function(address, name) {
         if (name === undefined || name == "") {
-            name = "Anonymous";
+            if (filterAuthor != address) {
+                name = "Anonymous";
+            } else {
+                name = address;
+            }
         }
         instance_authorName.set(name);
     });
@@ -144,20 +148,24 @@ function updateButtons() {
     if (nextButton != null) {
       var prevButton = document.getElementById("prev");
       // FIXME Pub.size() can be -1 here
+      var authorIndex = document.getElementById("author-index");
       if (filterAuthor) {
+        console.log(filterAuthor);
+        authorIndex.classList.remove("hidden");
         Pub.getAuthorPublicationCount(filterAuthor, function (source, count) {
-            if (filterAuthorIndex + 1 < count) {
-              nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex+1);
+            if (filterAuthorIndex.get() + 1 < count) {
+              nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex.get()+1);
             } else {
               nextButton.removeAttribute('href');
             }
-            if (filterAuthorIndex - 1 >= 0) {
-              prevButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex-1);
+            if (filterAuthorIndex.get() - 1 >= 0) {
+              prevButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex.get()-1);
             } else {
               prevButton.removeAttribute('href');
             }
         });
       } else {
+        authorIndex.classList.add("hidden");
         if (index + 1 < Pub.size()) {
           nextButton.href = "/browse/"+(index+1);
         } else {
@@ -225,6 +233,9 @@ Template.info.helpers({
   },
   contentError() {
     return content_error.get();
+  },
+  authorIndex() {
+    return filterAuthorIndex.get();
   },
 });
 
