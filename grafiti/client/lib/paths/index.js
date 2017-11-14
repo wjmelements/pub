@@ -91,10 +91,13 @@ function onFilterAuthor() {
         onRendered.push(onFilterAuthor);
         return;
     }
+    var compositionIndex = document.getElementById('all-index');
     if (filterAuthor == undefined) {
         authorLink.href = getAuthorLink();
+        compositionIndex.removeAttribute('href');
     } else {
         authorLink.removeAttribute('href');
+        compositionIndex.href = '/browse/'+instance_index.get();
     }
 }
 function setCurrentIndex(index, result) {
@@ -102,6 +105,7 @@ function setCurrentIndex(index, result) {
     content_error.set('');
     hidePubContentError();
     instance_index.set(index);
+    onFilterAuthor();
     instance_title.set(result[2]);
     console.log(result);
     var imgView=document.getElementById('pubconimg');
