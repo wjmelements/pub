@@ -48,7 +48,6 @@ function fetchPub(index, resultFn) {
 }
 
 function fetchAuthor(address, resultFn) {
-    console.log(address);
     pub.authors(address, function (error, result) {
         if (error) {
             console.error(error);
@@ -67,22 +66,23 @@ function fetchPublicationCount(address, resultFn) {
         }
         pubcount_map[address] = result;
         var emptyArray = [];
-        console.log(result);
+        result = result.c[0];
         emptyArray.length = result;
         author_imap[address] = emptyArray;
-        resultFn(result);
+        resultFn(address, result);
     });
 }
 
 function fetchPublicationIndex(address, index, resultFn) {
+    console.log(address);
     pub.allByAuthor(address, index, function (error, result) {
         if (error) {
             console.error(error);
             return;
         }
-        console.log(result);
+        result = result.c[0];
         pubcount_map[address][index] = result;
-        resultFn(result);
+        resultFn(address, result);
     });
 }
 
@@ -157,17 +157,32 @@ Pub = {
     },
     getAuthorPublicationIndex: function (address, index, resultFn) {
         resultArray = author_imap[address];
-        if (result == undefined) {
-            Pub.getAuthorPublicationCount(address, function(count) {
-                getAuthorPublicationIndex(address, index, resultFn);
+        if (resultArray == undefined) {
+            Pub.getAuthorPublicationCount(address, function(address, count) {
+                Pub.getAuthorPublicationIndex(address, index, resultFn);
             });
             return;
         }
         if (resultArray[index] != undefined) {
-            resultFn(resultArray[index]);
+            console.log(resultArray[index]);
+            resultFn(address, resultArray[index]);
             return;
         }
         fetchPublicationIndex(address, index, resultFn);
+    },
+    getLastBy: function (address, resultFn) {
+        console.log("getLastBy");
+        Pub.getAuthorPublicationCount(address, function (address, count) {
+            console.log(count);
+            if (count == 0) {
+                // TODO
+                console.error("No publications for " + address);
+                return;
+            }
+            Pub.getAuthorPublicationIndex(address, count - 1, function(address, index) {
+                Pub.get(index, resultFn);
+            });
+        });
     },
     publish: executePublish,
     publishBytes: executePublishBytes,

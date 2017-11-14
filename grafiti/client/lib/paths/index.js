@@ -1,17 +1,41 @@
 var redirectedOnce = false;
+var filterAuthor = null;
+var filterAuthorIndex = 0;
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
         if (!redirectedOnce && typeof web3 == "undefined") {
             redirectedOnce = true;
-            console.log("redirecting?");
             redirect("/about");
             return;
         }
-        if (context.path.startsWith('/browse/')) {
+        var path = context.path;
+        if (path.startsWith('/browse/')) {
+            filterAuthor=null;
             var index = parseInt(context.path.substring(8));
             Pub.get(index, setCurrentIndex);
+        } else if (path.startsWith('/source/')) {
+            var slashLoc = path.indexOf('/',8);
+            
+            var source = path.substring(8, slashLoc == -1 ? undefined : slashLoc);
+
+            filterAuthor=source;
+            if (slashLoc == -1) {
+                Pub.getAuthorPublicationCount(source, function(address, count) {
+                    filterAuthorIndex=count-1;
+                    updateButtons();
+                    Pub.getLastBy(source, setCurrentIndex);
+                });
+            } else {
+                var index = parseInt(path.substring(slashLoc + 1));
+                filterAuthorIndex = index;
+                Pub.getAuthorPublicationIndex(source,index, function(address, index) {
+                    Pub.get(index, setCurrentIndex);
+                });
+            }
         } else {
+            filterAuthor=null;
+            filterAuthorIndex = 0;
             Pub.getLast(setCurrentIndex);
         }
         BlazeLayout.render('main', { main: "info" });
@@ -120,15 +144,30 @@ function updateButtons() {
     if (nextButton != null) {
       var prevButton = document.getElementById("prev");
       // FIXME Pub.size() can be -1 here
-      if (index + 1 < Pub.size()) {
-        nextButton.href = "/browse/"+(index+1);
+      if (filterAuthor) {
+        Pub.getAuthorPublicationCount(filterAuthor, function (source, count) {
+            if (filterAuthorIndex + 1 < count) {
+              nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex+1);
+            } else {
+              nextButton.removeAttribute('href');
+            }
+            if (filterAuthorIndex - 1 >= 0) {
+              prevButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex-1);
+            } else {
+              prevButton.removeAttribute('href');
+            }
+        });
       } else {
-        nextButton.removeAttribute('href');
-      }
-      if (index - 1 >= 0) {
-        prevButton.href = "/browse/"+(index-1);
-      } else {
-        prevButton.removeAttribute('href');
+        if (index + 1 < Pub.size()) {
+          nextButton.href = "/browse/"+(index+1);
+        } else {
+          nextButton.removeAttribute('href');
+        }
+        if (index - 1 >= 0) {
+          prevButton.href = "/browse/"+(index-1);
+        } else {
+          prevButton.removeAttribute('href');
+        }
       }
     }
 }
@@ -178,7 +217,10 @@ Template.info.helpers({
   authorName() {
     return instance_authorName.get();
   },
-  authorUrl() {
+  authorLink() {
+    return "/source/"+instance_authorAddress.get();
+  },
+  authorInfo() {
     return instance_authorUrl.get();
   },
   contentError() {

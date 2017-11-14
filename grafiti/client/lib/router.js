@@ -16,6 +16,20 @@ FlowRouter.route('/random', {
         console.log("routed:/random");
     }
 });
+FlowRouter.route('/source/:author/:index', {
+    triggersEnter: [Index.onEnter],
+    triggersExit: [Index.onExit],
+    action: function(params, queryParams) {
+        console.log("routed:/source/:author/:index");
+    }
+});
+FlowRouter.route('/source/:author', {
+    triggersEnter: [Index.onEnter],
+    triggersExit: [Index.onExit],
+    action: function(prams, queryParams) {
+        console.log("routed:/source/:author");
+    }
+});
 FlowRouter.route('/browse/:entryId', {
     triggersEnter: [Index.onEnter],
     triggersExit: [Index.onExit],
