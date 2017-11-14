@@ -92,7 +92,7 @@ function onFilterAuthor() {
         return;
     }
     if (filterAuthor == undefined) {
-        authorLink.href = Template.info.__helpers.get('authorLink')();
+        authorLink.href = getAuthorLink();
     } else {
         authorLink.removeAttribute('href');
     }
@@ -225,6 +225,10 @@ Template.info.onRendered(function () {
     }
 });
 
+function getAuthorLink() {
+  return "/source/"+instance_authorAddress.get();
+}
+
 Template.info.helpers({
   index() {
     return instance_index.get();
@@ -237,9 +241,6 @@ Template.info.helpers({
   },
   authorName() {
     return instance_authorName.get();
-  },
-  authorLink() {
-    return "/source/"+instance_authorAddress.get();
   },
   authorInfo() {
     return instance_authorUrl.get();
