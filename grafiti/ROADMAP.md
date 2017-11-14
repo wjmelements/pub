@@ -1,5 +1,5 @@
 ## Release Blocking
-Rinkeby Test Network support
+Default eth provider
 Donate page
 Post-banner Redesign
 

@@ -2,19 +2,24 @@ window.addEventListener('load', function() {
     if (typeof web3 === 'undefined') {
         //web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
         document.getElementById("withoutweb3").hidden = false;
+        // TODO fallback to another web3 provider
         return;
     }
+    var pubABI=[{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"timestamp","type":"uint256"},{"name":"title","type":"string"},{"name":"body","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"bytes"}],"name":"publishBytes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
+    function refreshPub() {
+        pub = web3.eth.contract(pubABI).at(Pub.getAddress())
+        while (onPub.length) {
+            onPub.pop()();
+        }
+    }
+    Net.addRefreshHandler(refreshPub);
+    refreshPub();
     fetchSize();
 });
 
-var testNetworkAddress='0xC68794C3C55e62b4D65291B6E061Ccf5ee678CF5'; // TODO re-add rinkeby support
-if (typeof web3 === 'object')
-{
-
-pub = web3.eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"timestamp","type":"uint256"},{"name":"title","type":"string"},{"name":"body","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"bytes"}],"name":"publishBytes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]).at('0x2a0f713aA953442EacA9EA47083f656170e67BA4')
-
-} // web3
+pub=null;
 var onSize = [];
+var onPub = [];
 var pub_size = -1;
 // TODO intelligent caching
 var pub_map = {};
@@ -36,7 +41,7 @@ function fetchSize() {
 }
 
 function fetchPub(index, resultFn) {
-    console.log(index);
+    console.log("Fetching " + index);
     pub.all(index, function (error, result) {
         if (error) {
             console.error(error);
@@ -74,7 +79,7 @@ function fetchPublicationCount(address, resultFn) {
 }
 
 function fetchPublicationIndex(address, index, resultFn) {
-    console.log(address);
+    console.log("Fetching "+address+"["+index+"]");
     pub.allByAuthor(address, index, function (error, result) {
         if (error) {
             console.error(error);
@@ -107,6 +112,18 @@ function executePublishBytes(title, content, resultFn) {
 }
 
 Pub = {
+    getAddress: function() {
+        switch (nId) {
+            case "1":
+                return '0x2a0f713aA953442EacA9EA47083f656170e67BA4';
+            case "4":
+                console.log("Using Rinkeby");
+                return '0xC68794C3C55e62b4D65291B6E061Ccf5ee678CF5';
+            default:
+                console.error("No known Pub on this network:" + nId);
+                break;
+        }
+    },
     size: function() {
         return pub_size;
     },
@@ -123,6 +140,18 @@ Pub = {
         resultFn(index);
     },
     get: function(index, resultFn) {
+        if (pub == null) {
+            onPub.push(function() {
+                Pub.get(index, resultFn);
+            });
+            return;
+        }
+        if (pub_size == -1) {
+            onSize.push(function() {
+                Pub.get(index, resultFn);
+            });
+            return;
+        }
         result=pub_map[index]
         if (result != undefined) {
             resultFn(index, result);
@@ -164,7 +193,6 @@ Pub = {
             return;
         }
         if (resultArray[index] != undefined) {
-            console.log(resultArray[index]);
             resultFn(address, resultArray[index]);
             return;
         }
@@ -173,9 +201,8 @@ Pub = {
     getLastBy: function (address, resultFn) {
         console.log("getLastBy");
         Pub.getAuthorPublicationCount(address, function (address, count) {
-            console.log(count);
             if (count == 0) {
-                // TODO
+                // TODO no publications for address
                 console.error("No publications for " + address);
                 return;
             }

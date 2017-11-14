@@ -1,26 +1,40 @@
-network=''
 networkPrefix = function() {
     if (network.length > 1) {
         return network + '.';
     }
     return network;
 }
-function refreshNetwork() {
-    web3.version.getNetwork((err, netId) => {
-        switch (netId) {
-            case "1":
-                network='';
-                break;
-            case "3":
-                network='ropsten';
-                break;
-            case "4":
-                network='rinkeby';
-                break;
-        }
-    });
+network=''
+nId = "1";
+var refreshHandlers = [];
+Net = {
+    refreshNetwork: function() {
+        web3.version.getNetwork((err, netId) => {
+            switch (netId) {
+                case "1":
+                    network='';
+                    break;
+                case "3":
+                    network='ropsten';
+                    break;
+                case "4":
+                    network='rinkeby';
+                    break;
+            }
+            if (nId != netId) {
+                nId = netId;
+                for (var i = 0; i < refreshHandlers.length; i++) {
+                    refreshHandlers[i]();
+                }
+            }
+        });
+    },
+    addRefreshHandler: function(refreshHandler) {
+        refreshHandlers.push(refreshHandler);
+    },
 }
 if (typeof web3 === 'object')
 {
-    refreshNetwork();
+    nId = web3.version.network;
+    Net.refreshNetwork();
 }
