@@ -35,6 +35,9 @@ h2.pubtit {
 p.author {
   margin-top:0px;
 }
+a#info-author {
+  font-weight:bold;
+}
 ul.pages li {
   display:table-cell;
   text-align:center;

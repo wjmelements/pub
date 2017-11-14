@@ -39,6 +39,7 @@ Index = {
             Pub.getLast(setCurrentIndex);
         }
         BlazeLayout.render('main', { main: "info" });
+        onFilterAuthor();
     },
     onExit: function(context) {
         console.log("Index.onExit");
@@ -83,6 +84,18 @@ function hidePubContentError() {
         return;
     }
     pubconerr.hidden = true;
+}
+function onFilterAuthor() {
+    var authorLink = document.getElementById('info-author');
+    if (authorLink == undefined) {
+        onRendered.push(onFilterAuthor);
+        return;
+    }
+    if (filterAuthor == undefined) {
+        authorLink.href = Template.info.__helpers.get('authorLink')();
+    } else {
+        authorLink.removeAttribute('href');
+    }
 }
 function setCurrentIndex(index, result) {
     console.log("setCurrentIndex("+index+")");
