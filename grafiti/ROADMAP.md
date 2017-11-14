@@ -1,6 +1,6 @@
 ## Release Blocking
+Firefox extension link
 Rinkeby Test Network support
-All by author
 SVG Support
 File Download
 Donate page
