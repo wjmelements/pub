@@ -119,5 +119,21 @@
 </template>
 
 <template name="error">
-  <p class="error">Your browser does not support Web3. Web 3.0 support is required to interact with Ethereum. If you are using Chrome or Firefox, install the <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">Metamask extension</a>. Alternatively, download the <a href="https://github.com/ethereum/mist/releases">Mist browser</a>.</p>
+  <p class="error">Your browser does not support Web3. Web 3.0 support is required to interface with Ethereum. {{> errorHelp}}</p>
+</template>
+
+<template name="errorHelp">
+  {{> Template.dynamic template=browserHelp }}
+</template>
+
+<template name="firefoxHelp">
+  Please install <a href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/?src=api">Metamask for Firefox</a>.
+</template>
+
+<template name="chromeHelp">
+  Please install <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">Metamask for Chrome</a>.
+</template>
+
+<template name="defaultHelp">
+  If you are using Opera, Edge, Chrome or Firefox, install the <a href="https://github.com/MetaMask/metamask-extension/releases">Metamask browser extension</a>. Alternatively, download the <a href="https://github.com/ethereum/mist/releases">Mist browser</a>.
 </template>
