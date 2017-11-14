@@ -64,11 +64,11 @@ function fetchPublicationCount(address, resultFn) {
             console.error(error);
             return;
         }
-        pubcount_map[address] = result;
         var emptyArray = [];
         result = result.c[0];
         emptyArray.length = result;
         author_imap[address] = emptyArray;
+        pubcount_map[address] = result;
         resultFn(address, result);
     });
 }
@@ -81,7 +81,7 @@ function fetchPublicationIndex(address, index, resultFn) {
             return;
         }
         result = result.c[0];
-        pubcount_map[address][index] = result;
+        author_imap[address][index] = result;
         resultFn(address, result);
     });
 }
