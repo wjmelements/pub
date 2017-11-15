@@ -66,6 +66,10 @@ function fetchAuthor(address, resultFn) {
 }
 
 function fetchPublicationCount(address, resultFn) {
+    if (pub == null) {
+        onPub.push(function() {fetchPublicationCount(address, resultFn);});
+        return;
+    }
     pub.publicationCount(address, function (error, result) {
         if (error) {
             console.error(error);

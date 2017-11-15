@@ -1,6 +1,6 @@
 # Pub
 Pub is a general-purpose publication contract for the Ethereum Network.
-Pub powers Grafiti, a DApp in progress.
+Pub powers Grafiti, a Dapp hosted at <http://grafiti.online>.
 
 ## Why Use Pub
 Pub is the cheapest censorship-resistant publication platform available.
@@ -9,21 +9,34 @@ All published content is freely available to everyone for the duration of the Et
 Pub is immutable.
 Pub is forever.
 
-## How to Use Pub
+## How to Publish via Pub
 ### Read the contract
-Pub source code is available in [pub.sol](https://github.com/wjmelements/pub/blob/master/pub.sol) and also on [Etherscan](https://etherscan.io/address/0x2a0f713aA953442EacA9EA47083f656170e67BA4).
-The code is easy to understand and only 46 lines.
+Pub source code is available in [pub.sol](https://github.com/wjmelements/pub/blob/master/contracts/pub.sol) and also on [Etherscan](https://etherscan.io/address/0x2a0f713aA953442EacA9EA47083f656170e67BA4).
+The code is easy to understand and only 63 lines.
 You should never interact with a contract you do not understand.
 
 ### Get a Web 3.0 Capable Web Browser
 
-#### Option: Use Chrome+Metamask
-Metamask is an add-on for Chrome that allows Chrome to interface with Ethereum.
+#### Option: grafiti.online
+[Grafiti](http://grafiti.online) is a website facilitating browsing and submission.
+Metamask is an add-on for Chrome, Firefox, Opera, and Edge that allows them to interface with Ethereum.
 
-#### Option: Use Mist
+#### Option: Using the Mist Contract
 [Install Mist](https://github.com/ethereum/mist/releases) from Github.
 Mist is an open-source Dapp browser specialized for Ethereum.
 To sync faster, enable the "Sync with Light client" option.
+### Locate Pub
+In Mist, go to Contracts > Watch Contract.
+Pub is currently located at `0x2a0f713aA953442EacA9EA47083f656170e67BA4`.
+The ABI is:
+
+```
+[{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"title","type":"string"},{"name":"body","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
+```
+
+Optionally, verify the published contract matches the bytes generated from `solc --bin pub.sol`.
+The output bytes will never change because the compiler version is specified.
+[Etherscan.io](http://etherscan.io/contract/0x2a0f713aA953442EacA9EA47083f656170e67BA4) does this automatically;
 
 ### Obtain a key
 Generate a key for the Ethereum Network.
@@ -36,18 +49,6 @@ If you intend to remain anonymous, you may consider generating a new key for eve
 Ether is required to pay the cost of every node in the Ethereum Network permanently hosting your content.
 The easiest and most common way to obtain ether is through a currency exchange.
 The more bytes in your publication, the more ether you will need.
-
-### Locate Pub
-In Mist, go to Contracts > Watch Contract.
-Pub is currently located at `0x2a0f713aA953442EacA9EA47083f656170e67BA4`.
-The ABI is:
-
-```
-[{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"allByAuthor","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"all","outputs":[{"name":"source","type":"address"},{"name":"title","type":"string"},{"name":"body","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"sign","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"size","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_author","type":"address"}],"name":"publicationCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"authors","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_body","type":"string"}],"name":"publish","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
-```
-
-Optionally, verify the published contract matches the bytes generated from `solc --bin pub.sol`.
-The output bytes will never change because the compiler version is specified.
 
 ### Execute publish()
 Be sure to provide enough gas.
@@ -76,8 +77,21 @@ personal.unlockAccount(eth.accounts[0])
 pub.publish.sendTransaction(title, body, {from:eth.accounts[0], gas:(180000+680*(title.length+body.length))})
 ```
 
+## Publication Guidelines
+You pay by the byte.
+Use the cheapest format possible. Usually that will be .svg or .webp for images.
+Be brief.
+
+Have foresight.
+
+[*DO NOT break the laws of your country*](LEGAL.md).
+
 ## Contributing
+Please open pull requests on github.
 ### Pub
-Optimizations that reduce the cost of publication are welcome. Please create a pull request on Github.
+Optimizations that reduce the cost of publication are welcome.
+Future publication contracts will be hosted on allpubs.eth.
+allpubs.sol is not yet finalized.
 
 Augmentations to the feature set, such as comments, tagging, and tipping, are best implemented as standalone contracts that reference the Pub.
+New contracts can be integrated into any front end, including Grafiti.
