@@ -27,6 +27,7 @@ function showTransactionHash(hash) {
 }
 
 Template.submit.onRendered(function () {
+    document.getElementById("withoutweb3").hidden = (typeof web3 !== 'undefined') && (typeof web3.currentProvider.host === 'undefined');
     instance_title = document.getElementById('submit-title');
     instance_content = document.getElementById('submit-content');
     instance_preview_title = document.getElementById('submit-preview-title');

@@ -1,6 +1,5 @@
 window.addEventListener('load', function() {
     if (typeof web3 === 'undefined') {
-        document.getElementById("withoutweb3").hidden = false;
         //web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
         web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/x6jRpmEj17uLQR1TuV1E"));
         Net.refreshNetwork();
@@ -114,14 +113,13 @@ function executePublishBytes(title, content, resultFn) {
 Pub = {
     getAddress: function() {
         switch (nId) {
+            default:
+                console.error("No known Pub on this network:" + nId);
             case "1":
                 return '0x2a0f713aA953442EacA9EA47083f656170e67BA4';
             case "4":
                 console.log("Using Rinkeby");
                 return '0xC68794C3C55e62b4D65291B6E061Ccf5ee678CF5';
-            default:
-                console.error("No known Pub on this network:" + nId);
-                break;
         }
     },
     size: function() {

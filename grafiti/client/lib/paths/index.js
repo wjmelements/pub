@@ -1,11 +1,9 @@
-var redirectedOnce = false;
 var filterAuthor = null;
 var filterAuthorIndex = new ReactiveVar(0);
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
-        if (!redirectedOnce && typeof web3 == "undefined") {
-            redirectedOnce = true;
+        if (typeof web3 == "undefined") {
             redirect("/about");
             return;
         }

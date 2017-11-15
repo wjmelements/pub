@@ -6,9 +6,6 @@
   <h1>Grafiti</h1>
   {{> pages}}
   <div id="__blaze-root">
-    <div id="withoutweb3" hidden>
-    {{> error}}
-    </div>
     {{> main}}
   </div>
 </body>
@@ -53,6 +50,9 @@
 </template>
 
 <template name="submit">
+  <div id="withoutweb3" hidden>
+    {{> error}}
+  </div>
   Title: <input id= "submit-title" type="text" name="title"/>
   <br>
   Content: <textarea cols="80" rows="4" id="submit-content" type="text" name="content"></textarea>
