@@ -1,5 +1,4 @@
 ## Release Blocking
-Default eth provider
 Donate page
 Post-banner Redesign
 
