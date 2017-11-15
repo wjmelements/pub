@@ -61,22 +61,42 @@ ul.pages {
   padding:0px;
   display:table;
 }
-textarea#submit-content {
+#submit-title {
+  display:block;
+  width:90%;
+  padding:0.1em 1em;
+  border-radius:0.5em;
+  margin:0px auto;
+}
+#submit-content {
   display:block;
   margin:0px auto;
   width:90%;
   padding:1em;
   border-radius:0.5em;
 }
-pre.pubcon {
+.pubcon {
   display:inline-block;
   text-align:left;
   max-width:90%;
-  margin:0px auto;
+  margin:0 auto 0.5em auto;
   padding:1em;
   background-color:#ebf3ff;
   border-color:grey;
   border-width:thin;
   border-style:solid;
   border-radius:0.5em;
+}
+h3 {
+  margin-bottom:0.5em;
+  margin-top:1em;
+}
+p {
+  margin-bottom:0.5em;
+  margin-top:0.5em;
+}
+p.tagline {
+  width:90%;
+  margin:1em auto;
+  text-align:center;
 }

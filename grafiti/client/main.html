@@ -79,11 +79,11 @@
 </template>
 
 <template name="about">
-  <p>
+  <p class="tagline">
     Grafiti lets you scratch anything you want into the blockchain. You only pay a one-time network fee. Ethereum will preserve it forever.
   </p>
   <h3>What is Ethereum?</h3>
-    <p>      
+    <p class="pubcon">
       Ethereum is the second-most valuable cryptocurrency network in terms of market capitalization, behind Bitcoin.
       It differs from Bitcoin in several ways, the most important being that its smart contracts are <a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing Complete</a>.
       This means smart contracts are general-purpose programs.
@@ -91,11 +91,11 @@
       All code and code execution is auditable public record on the <a href="https://en.wikipedia.org/wiki/Blockchain">blockchain</a>.
       Identity and privacy are protected via <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">public key cryptography</a>.
     </p>
-    <p>
+    <p class="pubcon">
       Read more about Ethereum from its <a href="https://github.com/ethereum/wiki/wiki/White-Paper">White Paper</a>.
     </p>
   <h3>What is Pub?</h3>
-    <p>
+    <p class="pubcon">
       <a href="https://github.com/wjmelements/pub/">Pub</a> is contract deployed on Ethereum.
       Pub facilitates arbitrary publication, archiving the data within the contract itself.
       Everything published through Pub will be replicated by Ethereum indefinitely.
@@ -103,47 +103,47 @@
       Pub is uncensorable.
       Pub is forever.
     </p>
-    <p>
+    <p class="pubcon">
       Read the contract on <a href="https://etherscan.io/address/0x2a0f713aA953442EacA9EA47083f656170e67BA4#code">Etherscan.io</a>.
     </p>
   <h3>What is Grafiti?</h3>
-    <p>
+    <p class="pubcon">
       Grafiti is a serverless front-end for Pub.
       Data requests are handled by the decentralized Ethereum Network.
       Along with the Ethereum and Pub, Grafiti is <a href="https://github.com/wjmelements/pub/">open source</a>, so anyone can help with development, even you.
     </p>
   <h3>Why not use Swarm?</h3>
-    <p>
+    <p class="pubcon">
       Swarm facilitates a crowd-sharing file system similar to <a href="https://en.wikipedia.org/wiki/BitTorrent">BitTorrent</a>.
       Data hosted by Swarm is evicted if not retreived often enough.
       There are <a href="http://happta.com/">other solutions</a> in place for ephemeral publication on Swarm.
       Pub aims to be a lasting archive.
     </p>
   <h3>How do I get ether?</h3>
-    <p>
+    <p class="pubcon">
       You can get ether on an exchange.
     </p>
   <h3>What if I break the law?</h3>
-    <p>
+    <p class="pubcon">
       As stated in the <a href="https://www.ethereum.org/agreement">Ethereum Legal Agreement</a>, you are responsible for your own actions.
       The Ethereum Network is censorship-resistant.
       All material published on Pub will be immutable public record.
       If you break the laws of your country using this software, be prepared to be prosecuted to the fullest extent of the law.
     </p>
   <h3>What is gas? Why is my transaction taking so long? How can I save ether on my publications?</h3>
-    <p>
+    <p class="pubcon">
       You can specify any gas price.
       View the current market rate on the <a href=https://ethstats.net/>Ethereum Network Status Page</a>, but more detailed gas and transaction information can be found at the <a href="https://ethgasstation.info/">ETH Gas Station</a>
       Beware, if you choose a gas price that is too low, your transaction can take much longer to process.
       If you pay enough for gas, your transaction will usually confirm on the next block.
       Ethereum generates a block about every 15 seconds.
     </p>
-    <p>
+    <p class="pubcon">
       Ensure that your publication is as small as possible.
       You pay by the byte.
       Consider .svg and .webp for image compression.
     </p>
-    <p>
+    <p class="pubcon">
       Heed warnings about using too much gas.
       Ethereum nodes have a gas limit.
       If your publication is too large, it will not fit into the block.
