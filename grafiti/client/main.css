@@ -62,9 +62,10 @@ ul.pages {
   display:table;
 }
 #submit-title {
-  display:block;
+  display:inline-block;
   width:90%;
-  padding:0.1em 1em;
+  max-width:20em;
+  padding:0.5em 1em;
   border-radius:0.5em;
   margin:0px auto;
 }
