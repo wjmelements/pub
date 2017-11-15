@@ -35,6 +35,8 @@ Net = {
 }
 if (typeof web3 === 'object')
 {
-    nId = web3.version.network;
-    Net.refreshNetwork();
+    if (typeof web3.version !== 'undefined') {
+        nId = web3.version.network;
+        Net.refreshNetwork();
+    }
 }
