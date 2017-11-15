@@ -101,3 +101,12 @@ p.tagline {
   margin:1em auto;
   text-align:center;
 }
+table {
+  border-collapse:collapse;
+}
+.pubcon td,th {
+  padding:1em;
+  border-width:thin;
+  border-style:solid;
+  text-align:right;
+}
