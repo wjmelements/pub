@@ -1,4 +1,5 @@
 # Pub
+Pub is the archive of the Internet.
 Pub is a general-purpose publication contract for the Ethereum Network.
 Pub powers Grafiti, a Dapp hosted at <http://grafiti.online>.
 
