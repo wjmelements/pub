@@ -53,6 +53,9 @@
   <div id="withoutweb3" hidden>
     {{> error}}
   </div>
+  <div id="legal">
+    {{> warning}}
+  </div>
   Title: <input id= "submit-title" type="text" name="title"/>
   <br>
   Content: <textarea cols="80" rows="4" id="submit-content" type="text" name="content"></textarea>
@@ -145,6 +148,10 @@
       Ethereum nodes have a gas limit.
       If your publication is too large, it will not fit into the block.
     </p>
+</template>
+
+<template name="warning">
+  <p class="error warning">Reminder: Do not break the law. You are only as anonymous as your public key.</p>
 </template>
 
 <template name="error">

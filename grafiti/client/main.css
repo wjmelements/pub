@@ -29,6 +29,9 @@ p.error {
   border-radius:15px;
   color:white;
 }
+p.error.warning {
+  background-color:#b3af09;
+}
 h2.pubtit {
   margin-bottom:0px;
 }
