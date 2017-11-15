@@ -53,7 +53,7 @@ The more bytes in your publication, the more ether you will need.
 ### Execute publish()
 Be sure to provide enough gas.
 Gas cost is calculable, but not yet automatically calculated.
-The recommended gas is 180,000 + 680 per byte.
+The recommended gas is 166367 + 348 per byte.
 Verify there is no cheaper format for your content.
 Verify there are no errors in your content.
 You will not be able to edit or update your publication.
@@ -74,7 +74,7 @@ body="Your Content"
 
 personal.unlockAccount(eth.accounts[0])
 
-pub.publish.sendTransaction(title, body, {from:eth.accounts[0], gas:(180000+680*(title.length+body.length))})
+pub.publish.sendTransaction(title, body, {from:eth.accounts[0], gas:(166367+348*(title.length+body.length))})
 ```
 
 ## Publication Guidelines
