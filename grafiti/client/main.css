@@ -77,6 +77,8 @@ ul.pages {
   border-radius:0.5em;
 }
 .pubcon {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
   display:inline-block;
   text-align:left;
   max-width:90%;
