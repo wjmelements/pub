@@ -105,8 +105,7 @@ function setCurrentIndex(index, result) {
     instance_index.set(index);
     onFilterAuthor();
     instance_title.set(result[2]);
-    console.log(result[2].length + result[3].length);
-    console.log(result);
+    console.log(result[2].length + result[3].length / 2 - 1);
     var imgView=document.getElementById('pubconimg');
     if (imgView == undefined) {
         onRendered.push(function() { setCurrentIndex(index, result)});

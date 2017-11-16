@@ -21,7 +21,7 @@ function onTableChange() {
                     bytes = parseInt(input && input.value || cell.innerHTML) || 0;
                     break;
                 case 1:
-                    cell.innerHTML = gas = bytes * 348 + 166367;
+                    cell.innerHTML = gas = bytes * 700 + 162556;
                     break;
                 case 2:
                 case 4:
