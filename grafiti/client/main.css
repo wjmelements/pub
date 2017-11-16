@@ -76,9 +76,11 @@ ul.pages {
   padding:1em;
   border-radius:0.5em;
 }
-.pubcon {
+pre.pubcon {
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
+}
+.pubcon {
   display:inline-block;
   text-align:left;
   max-width:90%;
