@@ -10,7 +10,7 @@ About = {
 function onTableChange() {
     console.log("onTableChange()");
     var table = document.getElementById('gas-estimate');
-    var customGasPrice = (parseFloat(table.getElementsByClassName('gas-price')[0].value) || 0) * 0.000000002;
+    var customGasPrice = (parseFloat(table.getElementsByClassName('gas-price')[0].value) || 0) * 0.000000001;
     for (var i = 1, row; row = table.rows[i]; i++) {
         var bytes, gas;
         for (var j = 0, cell; cell= row.cells[j]; j++) {
