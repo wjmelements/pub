@@ -24,6 +24,7 @@ p.success {
   color:white;
 }
 p.error {
+  display:inline-block;
   background-color:#ff5858;
   padding:15px;
   border-radius:15px;
