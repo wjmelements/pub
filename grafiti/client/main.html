@@ -120,9 +120,57 @@
       There are many options for ephemeral publication.
       Pub aims to be a lasting archive.
     </p>
+  <h3>How much does it cost to publish?</h3>
+    <p class="pubcon">
+      The cost of publication depends on the bytes in the title and content as well as the specified gas price. Gas is explained later on this page.
+    </p>
+    <p class="pubcon">
+      <table id="gas-estimate">
+        <tr>
+          <th>Bytes</th>
+          <th>Approx. Gas</th>
+          <th>@2 Gwei</th>
+          <th>USD</th>
+          <th><input class="gas-price" type="number" placeholder="Custom"/> Gwei</th>
+          <th>USD</th>
+        </tr>
+        <tr>
+          <td><input class="custom-bytes" type="number" placeholder="Custom"/></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>500</td>
+          <td>340367</td>
+          <td>0.000680734</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>1000</td>
+          <td>514367</td>
+          <td>0.001028734</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>8000</td>
+          <td>2950367</td>
+          <td>0.005900734</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </p>
   <h3>How do I get ether?</h3>
     <p class="pubcon">
-      You can get ether on an exchange.
+      You can get ether on an exchange, but you should transfer it to an account that you control.
     </p>
   <h3>What if I break the law?</h3>
     <p class="pubcon">
@@ -141,7 +189,7 @@
     <p class="pubcon">
       Gas is paid in ether.
       You can specify any gas price.
-      View the current market rate on the <a href=https://ethstats.net/>Ethereum Network Status Page</a>, but more detailed gas and transaction information can be found at the <a href="https://ethgasstation.info/">ETH Gas Station</a>
+      View the current market rate on the <a href=https://ethstats.net/>Ethereum Network Status Page</a>, but more detailed gas and transaction information can be found at the <a href="https://ethgasstation.info/">ETH Gas Station</a>.
       Beware, if you choose a gas price that is too low, your transaction can take much longer to process.
       If you pay enough for gas, your transaction will usually confirm on the next block.
       Ethereum generates a block about every 15 seconds.
@@ -155,34 +203,6 @@
       Heed warnings about using too much gas.
       Ethereum nodes have a gas limit.
       If your publication is too large, it will not fit into the block.
-    </p>
-  <h3>How much does it cost to publish?</h3>
-    <p class="pubcon">
-      The cost of publication depends on the bytes in the title and content as well as the specified gas price.
-    </p>
-    <p class="pubcon">
-      <table>
-        <tr>
-          <th>Bytes</th>
-          <th>Approx. Gas</th>
-          <th>@ 2 Gwei/gas</th>
-        </tr>
-        <tr>
-          <td>500</td>
-          <td>340367</td>
-          <td>0.000680734</td>
-        </tr>
-        <tr>
-          <td>1000</td>
-          <td>514367</td>
-          <td>0.001028734</td>
-        </tr>
-        <tr>
-          <td>8000</td>
-          <td>2950367</td>
-          <td>0.005900734</td>
-        </tr>
-      </table>
     </p>
 </template>
 

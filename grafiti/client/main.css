@@ -104,9 +104,13 @@ p.tagline {
 table {
   border-collapse:collapse;
 }
-.pubcon td,th {
+table td,th {
   padding:1em;
   border-width:thin;
   border-style:solid;
   text-align:right;
+}
+table input {
+  text-align:right;
+  width:6em;
 }
