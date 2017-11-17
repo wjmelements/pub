@@ -1,6 +1,7 @@
 ## Planned Features
-Donate page
-SVG Support
-Post-banner Redesign: vertical scrolling
-File Download
-SEO
+* Post-banner Redesign: vertical scrolling
+* allpubs.eth integration
+* Donate page
+* SVG Support
+* File Download
+* SEO
