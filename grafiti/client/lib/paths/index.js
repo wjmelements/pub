@@ -3,10 +3,6 @@ var filterAuthorIndex = new ReactiveVar(0);
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
-        if (typeof web3 == "undefined") {
-            redirect("/about");
-            return;
-        }
         var path = context.path;
         if (path.startsWith('/browse/')) {
             filterAuthor = null;
