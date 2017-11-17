@@ -25,7 +25,7 @@ Metamask is an add-on for Chrome, Firefox, Opera, and Edge that allows them to i
 [Install Mist](https://github.com/ethereum/mist/releases) from Github.
 Mist is an open-source Dapp browser specialized for Ethereum.
 To sync faster, enable the "Sync with Light client" option.
-### Locate Pub
+##### Locate Pub
 In Mist, go to Contracts > Watch Contract.
 Pub is currently located at `0x2a0f713aA953442EacA9EA47083f656170e67BA4`.
 The ABI is:
@@ -40,6 +40,7 @@ The output bytes will never change because the compiler version is specified.
 
 ### Obtain a key
 Generate a key for the Ethereum Network.
+Mist and Metamask will prompt you to do this.
 In Pub as in Ethereum, your private key is your identity.
 Please follow all of the best practices to protect your private key.
 Your publications will be indexed with your public key.
