@@ -2,12 +2,19 @@ pragma solidity ^0.4.18;
 
 /**
  * Manually audited pub registrar
+ *
+ * State Diagram:
+ * 
+ * UNCONTACTED -> APPLIED <-> REJECTED
+ *      |            |
+ *      v            v
+ *    BOARD       ACCEPTED
  */
 contract AllPubs {
     // the application fee serves to incentivize the board to review applications quickly
-    uint256 constant public registrationBounty = 20 finney;
-    // rejected application fees are 95% shredded
-    uint256 constant public invalidationBounty = 1 finney;
+    uint256 constant public registrationBounty = 50 finney;
+    // the board receives less when it rejects candidates
+    uint256 constant public invalidationBounty = 5 finney;
 
     enum Membership {
         UNCONTACTED, // default
@@ -19,6 +26,7 @@ contract AllPubs {
     }
 
     mapping (address => Membership) public membership;
+    // please do not trust REJECTED abis
     mapping (address => string) public abis;
     address[] public pubs;
 
