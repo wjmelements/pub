@@ -90,8 +90,8 @@ Have foresight.
 Please open pull requests on github.
 ### Pub
 Optimizations that reduce the cost of publication are welcome.
-Future publication contracts will be hosted on allpubs.eth.
-allpubs.sol is not yet finalized.
+Future publication contracts can be linked on [allpubs.eth](https://etherscan.io/address/0x11524a168d1b888df781a87a6b4511f199b543ad).
 
 Augmentations to the feature set, such as comments, tagging, and tipping, are best implemented as standalone contracts that reference the Pub.
 New contracts can be integrated into any front end, including Grafiti.
+Please refer to the [Grafiti Roadmap](grafiti/ROADMAP.md).
