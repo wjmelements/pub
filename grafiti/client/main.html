@@ -3,7 +3,9 @@
 </head>
 
 <body>
-  <h1>Grafiti</h1>
+  <h3 class="poweredby">powered by Ethereum</h3>
+  <h1 class="title">Grafiti</h1>
+  <h2 class="description">the archive of the Internet</h2>
   {{> pages}}
   <div id="__blaze-root">
     {{> main}}
@@ -80,13 +82,13 @@
 
 <template name="about">
   <p class="tagline">
-    Grafiti lets you scratch anything you want into the blockchain. You only pay a one-time network fee. Ethereum will preserve it forever.
+    Grafiti lets you scratch anything you want into the blockchain. You only pay a one-time network fee. The data will be preserved forever.
   </p>
   <h3>What is Ethereum?</h3>
     <p class="pubcon">
-      Ethereum is the second-most valuable cryptocurrency network in terms of market capitalization, behind Bitcoin.
-      It differs from Bitcoin in several ways, the most important being that its smart contracts are <a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing Complete</a>.
-      This means smart contracts are general-purpose programs.
+      Ethereum is the world's auditable decentralized computer.
+      Ethereum's token, ether, is currently the second-most valuable cryptocurrency in terms of market capitalization, behind Bitcoin.
+      Ethereum differs from Bitcoin in several ways, the most important being that its smart contracts are <a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing Complete</a>.
       Code deployed to Ethereum is immutable, so the terms of contracts never change.
       All code and code execution is auditable public record on the <a href="https://en.wikipedia.org/wiki/Blockchain">blockchain</a>.
       Identity and privacy are protected via <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">public key cryptography</a>.
@@ -95,6 +97,7 @@
       Read more about Ethereum from its <a href="https://github.com/ethereum/wiki/wiki/White-Paper">White Paper</a>.
     </p>
   <h3>What is Pub?</h3>
+    <div>
     <p class="pubcon">
       <a href="https://github.com/wjmelements/pub/">Pub</a> is contract deployed on Ethereum.
       Pub facilitates arbitrary publication, archiving the data within the contract itself.
@@ -103,19 +106,27 @@
       Pub is uncensorable.
       Pub is forever.
     </p>
+    </div>
+    <div>
     <p class="pubcon">
       Read the contract on <a href="https://etherscan.io/address/0x2a0f713aA953442EacA9EA47083f656170e67BA4#code">Etherscan.io</a>.
     </p>
+    </div>
   <h3>What is Grafiti?</h3>
+    <div>
     <p class="pubcon">
       Grafiti is a serverless front-end for Pub.
       Data requests are handled by the decentralized Ethereum Network.
       Along with the Ethereum and Pub, Grafiti is <a href="https://github.com/wjmelements/pub/">open source</a>, so anyone can help with development, even you.
     </p>
+    </div>
   <h3>How much does it cost to publish?</h3>
+    <div>
     <p class="pubcon">
       The cost of publication depends on the bytes in the title and content as well as the specified gas price. Gas is explained later on this page.
     </p>
+    </div>
+    <div>
     <p class="pubcon">
       <table id="gas-estimate">
         <tr>
@@ -160,7 +171,9 @@
         </tr>
       </table>
     </p>
+    </div>
   <h3>How do I get ether?</h3>
+    <div>
     <p class="pubcon">
       You can get ether on an exchange, but you should transfer it to an account that you control.
     </p>
@@ -178,25 +191,34 @@
       Metamask and Mist will suggest using more than the required amount of gas.
       Any extra gas supplied is fully refunded.
     </p>
+    </div>
+    <div>
     <p class="pubcon">
       Gas is paid in ether.
       You can specify any gas price.
-      View the current market rate on the <a href=https://ethstats.net/>Ethereum Network Status Page</a>, but more detailed gas and transaction information can be found at the <a href="https://ethgasstation.info/">ETH Gas Station</a>.
+      View the current market rate on the <a href=https://ethstats.net/>Ethereum Network Status</a>, but more detailed gas and transaction information can be found at the <a href="https://ethgasstation.info/">ETH Gas Station</a>.
       Beware, if you choose a gas price that is too low, your transaction can take much longer to process.
       If you pay enough for gas, your transaction will usually confirm on the next block.
       Ethereum generates a block about every 15 seconds.
     </p>
+    </div>
+    <div>
     <p class="pubcon">
       Ensure that your publication is as small as possible.
       You pay by the byte.
       Consider .svg and .webp for image compression.
     </p>
+    </div>
+    <div>
     <p class="pubcon">
       Heed warnings about using too much gas.
       Ethereum nodes have a gas limit.
+      You can also view the block gas limit on the Ethereum Network Status page.
       If your publication is too large, it will not fit into the block.
     </p>
+    </div>
   <h3>Why not use Swarm or IPFS?</h3>
+    <div>
     <p class="pubcon">
       Swarm facilitates a crowd-sharing file system similar to <a href="https://en.wikipedia.org/wiki/BitTorrent">BitTorrent</a>.
       Data hosted by Swarm and <a href="https://ipfs.io/">IPFS</a> can be evicted if not retreived often enough.
@@ -204,6 +226,13 @@
       There are many options for ephemeral publication.
       Pub aims to be a lasting archive.
     </p>
+    </div>
+  <h3>Where can I find more Dapps?</h3>
+    <div>
+    <p class="pubcon">
+      Grafiti is <a href="https://www.stateofthedapps.com/dapps/grafiti">listed</a> on <a href="https://www.stateofthedapps.com/">State of the Dapps</a>.
+    </p>
+    </div>
 </template>
 
 <template name="warning">

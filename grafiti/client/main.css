@@ -119,3 +119,10 @@ table input {
   text-align:right;
   width:6em;
 }
+.description {
+  margin:0;
+}
+.poweredby {
+  display:inline;
+  float:right;
+}
