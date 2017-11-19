@@ -125,4 +125,5 @@ table input {
 .poweredby {
   display:inline;
   float:right;
+  margin:0;
 }
