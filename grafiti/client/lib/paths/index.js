@@ -100,12 +100,12 @@ function hidePubContentError() {
     pubconerr.hidden = true;
 }
 function onFilterAuthor() {
-    var authorLink = document.getElementById('info-author');
+    var authorLink = document.getElementsByClassName('info-author')[0];
     if (authorLink == undefined) {
         onRendered.push(onFilterAuthor);
         return;
     }
-    var compositionIndex = document.getElementById('all-index');
+    var compositionIndex = document.getElementsByClassName('all-index')[0];
     if (filterAuthor == undefined) {
         authorLink.href = getAuthorLink();
         compositionIndex.removeAttribute('href');
@@ -119,7 +119,6 @@ function setCurrentIndex(index, result) {
     content_error.set('');
     hidePubContentError();
     instance_index.set(index);
-    onFilterAuthor();
     instance_title.set(result[2]);
     console.log(result[2].length + result[3].length / 2 - 1);
     var imgView=document.getElementById('pubconimg');
@@ -143,6 +142,7 @@ function setCurrentIndex(index, result) {
     instance_authorAddress.set(address);
     var name="Loading...";// TODO maybe use spinner?
     instance_authorName.set(name);
+    onFilterAuthor();
     setAuthorName();
     var authorUrl="https://"+networkPrefix()+"etherscan.io/address/"+address;
     instance_authorUrl.set(authorUrl);
@@ -179,7 +179,7 @@ function updateButtons() {
     if (nextButton != null) {
       var prevButton = document.getElementById("prev");
       // FIXME Pub.size() can be -1 here
-      var authorIndex = document.getElementById("author-index");
+      var authorIndex = document.getElementsByClassName("author-index")[0];
       if (filterAuthor) {
         console.log(filterAuthor);
         authorIndex.classList.remove("hidden");
@@ -272,10 +272,10 @@ Template.item.helpers({
 });
 
 Template.item.events({
-    'mouseover #info-author'(event) {
+    'mouseover .info-author'(event) {
         onAuthorMouseover();
     },
-    'mouseout #info-author'(event) {
+    'mouseout .info-author'(event) {
         onAuthorMouseout();
     },
 });
