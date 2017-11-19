@@ -119,7 +119,6 @@ function setCurrentIndex(index, result) {
     content_error.set('');
     hidePubContentError();
     instance_index.set(index);
-    onFilterAuthor();
     instance_title.set(result[2]);
     console.log(result[2].length + result[3].length / 2 - 1);
     var imgView=document.getElementById('pubconimg');
@@ -141,6 +140,7 @@ function setCurrentIndex(index, result) {
     
     var address=result[0];
     instance_authorAddress.set(address);
+    onFilterAuthor();
     var name="Loading...";// TODO maybe use spinner?
     instance_authorName.set(name);
     setAuthorName();
