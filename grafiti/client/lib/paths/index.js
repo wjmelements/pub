@@ -40,10 +40,30 @@ Index = {
     },
 };
 
+// hardcoded utf8
 function bytesToStr(bytes) {
     var str = "";
     for (var i = 2; i < bytes.length; i+=2) {
-        str += String.fromCharCode(parseInt(bytes.substring(i, i+2), 16));
+        var codePoint = parseInt(bytes.substring(i, i+2), 16);
+        if (codePoint >= 128) {
+            i+=2;
+            codePoint -= 192;
+            codePoint <<= 6;
+            codePoint |= parseInt(bytes.substring(i, i+2), 16)-128;
+            if (codePoint >= 2048) {
+                i+=2;
+                codePoint -= 2048;
+                codePoint <<= 6;
+                codePoint |= parseInt(bytes.substring(i, i+2), 16)-128;
+                if (codePoint >= 65536) {
+                    i+=2;
+                    codePoint -= 65536
+                    codePoint <<= 6;
+                    codePoint |= parseInt(bytes.substring(i, i+2), 16)-128;
+                }
+            }
+        }
+        str += String.fromCodePoint(codePoint);
     }
     return str;
 }
