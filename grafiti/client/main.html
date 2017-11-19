@@ -42,6 +42,10 @@
       <a id="next" href="/">Next</a>
     </li>
   </ul>
+  {{> item}}
+</template>
+
+<template name="item">
   <h2 class="pubtit inline">{{title}}</h2>
   <a id="all-index" class="inline">#{{index}}</a>
   <p class="author"><p id="author-index" class="inline hidden">#{{authorIndex}}</p> by <a id='info-author'>{{authorName}}</a></p>

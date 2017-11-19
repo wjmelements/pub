@@ -220,12 +220,12 @@ var instance_authorAddress = new ReactiveVar("");
 var instance_authorUrl = new ReactiveVar("");
 var content_error = new ReactiveVar("");
 
-Template.info.onCreated(function () {
+Template.item.onCreated(function () {
     console.log("onCreated");
     // TODO loading appearance
 });
 
-Template.info.onRendered(function () {
+Template.item.onRendered(function () {
     console.log("onRendered");
     updateButtons();
     var imgView=document.getElementById('pubconimg');
@@ -247,7 +247,7 @@ function getAuthorLink() {
   return "/source/"+instance_authorAddress.get();
 }
 
-Template.info.helpers({
+Template.item.helpers({
   index() {
     return instance_index.get();
   },
@@ -271,7 +271,7 @@ Template.info.helpers({
   },
 });
 
-Template.info.events({
+Template.item.events({
     'mouseover #info-author'(event) {
         onAuthorMouseover();
     },
