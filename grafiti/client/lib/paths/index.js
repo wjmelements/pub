@@ -1,5 +1,9 @@
 var filterAuthor = null;
-var filterAuthorIndex = new ReactiveVar(0);
+var filterAuthorIndex = new ReactiveVar(0); // XXX
+var onRendered = [];
+function getAuthorLink() {
+    // XXX
+}
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
@@ -7,7 +11,10 @@ Index = {
         if (path.startsWith('/browse/')) {
             filterAuthor = null;
             var index = parseInt(context.path.substring(8));
-            Pub.get(index, setCurrentIndex);
+            //Pub.get(index, setCurrentIndex);
+            BlazeLayout.reset();
+            BlazeLayout.render('main', { main: "info", index:index });
+            updateButtons(index);
         } else if (path.startsWith('/source/')) {
             var slashLoc = path.indexOf('/',8);
             
@@ -18,21 +25,20 @@ Index = {
                 Pub.getAuthorPublicationCount(source, function(address, count) {
                     filterAuthorIndex.set(count-1);
                     updateButtons();
-                    Pub.getLastBy(source, setCurrentIndex);
+                    //Pub.getLastBy(source, setCurrentIndex);
                 });
             } else {
                 var index = parseInt(path.substring(slashLoc + 1));
                 filterAuthorIndex.set(index);
                 Pub.getAuthorPublicationIndex(source,index, function(address, index) {
-                    Pub.get(index, setCurrentIndex);
+                    //Pub.get(index, setCurrentIndex);
                 });
             }
         } else {
             filterAuthor = null;
             filterAuthorIndex.set(0);
-            Pub.getLast(setCurrentIndex);
+            //Pub.getLast(setCurrentIndex);
         }
-        BlazeLayout.render('main', { main: "info" });
         onFilterAuthor();
     },
     onExit: function(context) {
@@ -40,65 +46,7 @@ Index = {
     },
 };
 
-// hardcoded utf8
-function bytesToStr(bytes) {
-    var str = "";
-    for (var i = 2; i < bytes.length; i+=2) {
-        var codePoint = parseInt(bytes.substring(i, i+2), 16);
-        if (codePoint >= 128) {
-            i+=2;
-            codePoint -= 192;
-            codePoint <<= 6;
-            codePoint |= parseInt(bytes.substring(i, i+2), 16)-128;
-            if (codePoint >= 2048) {
-                i+=2;
-                codePoint -= 2048;
-                codePoint <<= 6;
-                codePoint |= parseInt(bytes.substring(i, i+2), 16)-128;
-                if (codePoint >= 65536) {
-                    i+=2;
-                    codePoint -= 65536
-                    codePoint <<= 6;
-                    codePoint |= parseInt(bytes.substring(i, i+2), 16)-128;
-                }
-            }
-        }
-        str += String.fromCodePoint(codePoint);
-    }
-    return str;
-}
-
-function bytesToBlob(bytes, sliceSize, contentType) {
-    contentType = contentType || '';
-    sliceSize = sliceSize || 2048;
-
-    var byteCharacters = bytes;
-    var byteArrays = [];
-    for (var offset = 2; offset < byteCharacters.length; offset += sliceSize) {
-        var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-        var byteNumbers = new Array(slice.length/2);
-        for (var i = 0; i < slice.length; i+=2) {
-            byteNumbers[i/2] = parseInt(slice.substring(i,i+2), 16);
-        }
-
-        var byteArray = new Uint8Array(byteNumbers);
-
-        byteArrays.push(byteArray);
-    }
-    var blob = new Blob(byteArrays, {type: contentType});
-    return blob;
-}
-
 var onRendered=[];
-function hidePubContentError() {
-    var pubconerr= document.getElementById('pubconerr');
-    if (pubconerr == undefined) {
-        // if not yet renderd, will render as hidden
-        return;
-    }
-    pubconerr.hidden = true;
-}
 function onFilterAuthor() {
     var authorLink = document.getElementsByClassName('info-author')[0];
     if (authorLink == undefined) {
@@ -115,168 +63,53 @@ function onFilterAuthor() {
     }
 }
 
-function setCurrentIndex(index, result) {
-    console.log("setCurrentIndex("+index+")");
-    content_error.set('');
-    hidePubContentError();
-    instance_index.set(index);
-    instance_title.set(result[2]);
-    console.log(result[2].length + result[3].length / 2 - 1);
-    var imgView=document.getElementsByClassName('pubconimg')[0];
-    if (imgView == undefined) {
-        onRendered.push(function() { setCurrentIndex(index, result)});
+function updateButtons(index) {
+    var nextButton = document.getElementById("next");
+    if (nextButton == null) {
+        onRendered.push(function() {updateButtons(index);});
         return;
     }
-    if (Media.isImg(result[2])) {
-        console.log("img");
-        imgView.src = window.URL.createObjectURL(bytesToBlob(result[3]), Media.contentType(result[2]));
-        imgView.hidden=false;
-        instance_content.set(undefined);
+    var prevButton = document.getElementById("prev");
+    var authorIndex = document.getElementsByClassName("author-index")[0];
+    if (filterAuthor) {
+      console.log(filterAuthor);
+      authorIndex.classList.remove("hidden");
+      Pub.getAuthorPublicationCount(filterAuthor, function (source, count) {
+          if (filterAuthorIndex.get() + 1 < count) {
+            nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex.get()+1);
+          } else {
+            nextButton.removeAttribute('href');
+          }
+          if (filterAuthorIndex.get() - 1 >= 0) {
+            prevButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex.get()-1);
+          } else {
+            prevButton.removeAttribute('href');
+          }
+      });
     } else {
-        console.log("not img");
-        imgView.removeAttribute('src');
-        imgView.hidden=true;
-        instance_content.set(bytesToStr(result[3]));
-    }
-    
-    var address=result[0];
-    instance_authorAddress.set(address);
-    var name="Loading...";// TODO maybe use spinner?
-    instance_authorName.set(name);
-    onFilterAuthor();
-    setAuthorName();
-    var authorUrl="https://"+networkPrefix()+"etherscan.io/address/"+address;
-    instance_authorUrl.set(authorUrl);
-    updateButtons();
-}
-
-function setAuthorName() {
-    var address = instance_authorAddress.get();
-    Pub.getAuthorName(address, function(address, name) {
-        if (name === undefined || name == "") {
-            if (filterAuthor != address) {
-                name = "Anonymous";
-            } else {
-                name = address;
-            }
-        }
-        instance_authorName.set(name);
-    });
-}
-
-function onAuthorMouseover() {
-    if (instance_authorName.get() == "Anonymous") {
-        instance_authorName.set(instance_authorAddress.get());
-    }
-}
-
-function onAuthorMouseout() {
-    setAuthorName();
-}
-
-function updateButtons() {
-    var index = instance_index.get();
-    var nextButton = document.getElementById("next");
-    if (nextButton != null) {
-      var prevButton = document.getElementById("prev");
-      // FIXME Pub.size() can be -1 here
-      var authorIndex = document.getElementsByClassName("author-index")[0];
-      if (filterAuthor) {
-        console.log(filterAuthor);
-        authorIndex.classList.remove("hidden");
-        Pub.getAuthorPublicationCount(filterAuthor, function (source, count) {
-            if (filterAuthorIndex.get() + 1 < count) {
-              nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex.get()+1);
-            } else {
-              nextButton.removeAttribute('href');
-            }
-            if (filterAuthorIndex.get() - 1 >= 0) {
-              prevButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex.get()-1);
-            } else {
-              prevButton.removeAttribute('href');
-            }
-        });
+      authorIndex.classList.add("hidden");
+      if (index + 1 < Pub.size()) {
+        nextButton.href = "/browse/"+(index+1);
       } else {
-        authorIndex.classList.add("hidden");
-        if (index + 1 < Pub.size()) {
-          nextButton.href = "/browse/"+(index+1);
-        } else {
-          nextButton.removeAttribute('href');
-        }
-        if (index - 1 >= 0) {
-          prevButton.href = "/browse/"+(index-1);
-        } else {
-          prevButton.removeAttribute('href');
-        }
+        nextButton.removeAttribute('href');
+      }
+      if (index - 1 >= 0) {
+        prevButton.href = "/browse/"+(index-1);
+      } else {
+        prevButton.removeAttribute('href');
       }
     }
 }
 
-// these would be less global if we didn't have to preserve them between pages
-var instance_title = new ReactiveVar("Loading...")
-var instance_index = new ReactiveVar(0);
-var instance_content = new ReactiveVar("");
-var instance_authorName = new ReactiveVar("Loading...");
-var instance_authorAddress = new ReactiveVar("");
-var instance_authorUrl = new ReactiveVar("");
-var content_error = new ReactiveVar("");
-
-Template.item.onCreated(function () {
-    console.log("onCreated");
-    // TODO loading appearance
-});
-
-Template.item.onRendered(function () {
-    console.log("onRendered");
-    updateButtons();
-    var imgView=document.getElementsByClassName('pubconimg')[0];
-    imgView.addEventListener('load', function() {
-        console.log("img loaded");
-    });
-    imgView.addEventListener('error', function(e) {
-        console.log("img load error");
-        console.error(e);
-        document.getElementById('pubconerr').hidden=false;
-        content_error.set("Failed to load image." + Media.contentHelp(instance_title.get()));
-    });
+Template.info.onRendered(function () {
     while (onRendered.length > 0) {
         onRendered.pop()();
     }
 });
 
-function getAuthorLink() {
-  return "/source/"+instance_authorAddress.get();
-}
-
-Template.item.helpers({
-  index() {
-    return instance_index.get();
-  },
-  title() {
-    return instance_title.get();
-  },
-  content() {
-    return instance_content.get();
-  },
-  authorName() {
-    return instance_authorName.get();
-  },
-  authorInfo() {
-    return instance_authorUrl.get();
-  },
-  contentError() {
-    return content_error.get();
-  },
-  authorIndex() {
-    return filterAuthorIndex.get();
-  },
-});
-
-Template.item.events({
-    'mouseover .info-author'(event) {
-        onAuthorMouseover();
-    },
-    'mouseout .info-author'(event) {
-        onAuthorMouseout();
-    },
+Template.info.helpers({
+    index() {
+        console.log(this.index());
+        return this.index();
+    }
 });
