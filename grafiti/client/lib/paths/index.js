@@ -114,6 +114,7 @@ function onFilterAuthor() {
         compositionIndex.href = '/browse/'+instance_index.get();
     }
 }
+
 function setCurrentIndex(index, result) {
     console.log("setCurrentIndex("+index+")");
     content_error.set('');
@@ -121,7 +122,7 @@ function setCurrentIndex(index, result) {
     instance_index.set(index);
     instance_title.set(result[2]);
     console.log(result[2].length + result[3].length / 2 - 1);
-    var imgView=document.getElementById('pubconimg');
+    var imgView=document.getElementsByClassName('pubconimg')[0];
     if (imgView == undefined) {
         onRendered.push(function() { setCurrentIndex(index, result)});
         return;
@@ -228,7 +229,7 @@ Template.item.onCreated(function () {
 Template.item.onRendered(function () {
     console.log("onRendered");
     updateButtons();
-    var imgView=document.getElementById('pubconimg');
+    var imgView=document.getElementsByClassName('pubconimg')[0];
     imgView.addEventListener('load', function() {
         console.log("img loaded");
     });
