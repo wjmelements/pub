@@ -73,7 +73,7 @@
 <template name="submit">
   <div class="item">
   <div id="withoutweb3" hidden>
-    {{> error}}
+    {{> noweb3}}
   </div>
   <div id="legal">
     {{> warning}}
@@ -87,6 +87,9 @@
   or
   <input id="submit-file" type="file"/>
 
+  <div id="too-large" hidden>
+    {{> toolarge}}
+  </div>
   <div id="onSuccess" hidden>
   {{> success}}
   </div>
@@ -262,8 +265,12 @@
   <p class="error warning">Reminder: Do not break the law. You are only as anonymous as your public key.</p>
 </template>
 
-<template name="error">
+<template name="noweb3">
   <p class="error">Your browser does not support Web3. Web 3.0 support is required to publish with Ethereum. {{> errorHelp}}</p>
+</template>
+
+<template name="toolarge">
+  <p class="error">Your content is too large to publish on the blockchain. Try to keep your publications under 9 KB.</p>
 </template>
 
 <template name="errorHelp">

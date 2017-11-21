@@ -20,6 +20,7 @@ function clearSubmission() {
     document.getElementById('submit-file').value = '';
     document.getElementById('submit-preview-img').removeAttribute('src');
     instance_content.removeAttribute('readonly');
+    document.getElementById('too-large').hidden = true;
 }
 function showTransactionHash(hash) {
     document.getElementById('onSuccess').hidden = false;
@@ -38,6 +39,7 @@ function onChange() {
     if (fileBytes != undefined) {
         return;
     }
+    document.getElementById('too-large').hidden = instance_content.value.length <= 9000;
     instance_preview.set(instance_content.value);
 }
 
@@ -91,6 +93,11 @@ function onChangeFile() {
         var arrayBuffer = this.result;
         console.log("onload");
         var array = new Uint8Array(arrayBuffer);
+        if (array.length > 9100) {
+            document.getElementById('too-large').hidden = false;
+            return;
+        }
+        document.getElementById('too-large').hidden = true;
         // FIXME array too long can stack overflow
         var binaryString = String.fromCharCode.apply(null, array);
         fileBytes = binaryString;
