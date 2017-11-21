@@ -21,6 +21,7 @@ window.addEventListener('load', function() {
 
 pub=null;
 var onSize = [];
+var onResize = [];
 var onPub = [];
 var pub_size = -1;
 // TODO intelligent caching
@@ -35,9 +36,15 @@ function fetchSize() {
             console.error(error);
             return;
         }
+        var difference = pub_size - result.c[0];
         pub_size = result.c[0]
         while (onSize.length > 0) {
             onSize.pop()();
+        }
+        if (difference != 0) {
+            while (onResize.length > 0) {
+                onResize.pop()();
+            }
         }
     });
 }
@@ -228,4 +235,12 @@ Pub = {
     },
     publish: executePublish,
     publishBytes: executePublishBytes,
+    resizeSubscribe: function(resizeFn) {
+        onResize.push(resizeFn);
+    },
+    resizeUnsubscribe: function(resizeFn) {
+        onResize = onResize.filter(function(elem) {
+            return elem != resizeFn;
+        });
+    },
 }

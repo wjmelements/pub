@@ -44,9 +44,16 @@
 </template>
 
 <template name="feed">
+  <div id="refresh">
+    <img src="refresh.png"/>
+  </div>
+  {{>feeditem index=index filterAuthorIndex=filterAuthorIndex fitlerAuthor=filterAuthor }}
+</template>
+
+<template name="feeditem">
   {{> item index=index filterAuthorIndex=filterAuthorIndex filterAuthor=filterAuthor }}
   {{#if hasNext}}
-    {{> feed index=next}}
+    {{> feeditem index=next }}
   {{/if}}
 </template>
 
@@ -113,7 +120,7 @@
   <h3>What is Pub?</h3>
     <div>
     <p class="pubcon">
-      <a href="https://github.com/wjmelements/pub/">Pub</a> is contract deployed on Ethereum.
+      <a href="https://github.com/wjmelements/pub/">Pub</a> is a contract deployed on Ethereum.
       Pub facilitates arbitrary publication, archiving the data within the contract itself.
       Everything published through Pub will be replicated by Ethereum indefinitely.
       Pub is immutable.

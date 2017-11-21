@@ -126,3 +126,15 @@ table input {
   text-align:right;
   width:6em;
 }
+#refresh img {
+  width:4em;
+  height:4em;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+#refresh {
+  display:inline;
+  float:right;
+}
