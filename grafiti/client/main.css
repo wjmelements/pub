@@ -11,8 +11,9 @@ ul.inline {
   display:inline-table;
   margin:0px;
 }
-h1 {
-  margin-bottom:0px;
+img.banner {
+  max-width:100%;
+  max-height:100%;
 }
 ul.nav {
   list-style-type:none;
@@ -121,12 +122,4 @@ table td,th {
 table input {
   text-align:right;
   width:6em;
-}
-.description {
-  margin:0;
-}
-.poweredby {
-  display:inline;
-  float:right;
-  margin:0;
 }

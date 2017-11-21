@@ -1,5 +1,5 @@
 ## Planned Features
-* Post-banner Redesign: vertical scrolling
+* Post-banner redesign: colors
 * allpubs.eth integration
 * Donate page
 * SVG Support
