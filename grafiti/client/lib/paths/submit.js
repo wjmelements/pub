@@ -21,6 +21,7 @@ function clearSubmission() {
     document.getElementById('submit-preview-img').removeAttribute('src');
     instance_content.removeAttribute('readonly');
     document.getElementById('too-large').hidden = true;
+    onChangeTitle();
 }
 function showTransactionHash(hash) {
     document.getElementById('onSuccess').hidden = false;
