@@ -35,6 +35,7 @@ Index = {
             }
         } else {
             //Pub.getLast(setCurrentIndex);
+            console.error('unupported path: ' + context.path);
         }
     },
     onExit: function(context) {

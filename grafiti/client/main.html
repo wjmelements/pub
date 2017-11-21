@@ -45,14 +45,23 @@
   {{> item index=index filterAuthorIndex=filterAuthorIndex filterAuthor=filterAuthor }}
 </template>
 
+<template name="feed">
+  {{> item index=index filterAuthorIndex=filterAuthorIndex filterAuthor=filterAuthor }}
+  {{#if hasNext}}
+    {{> feed index=next}}
+  {{/if}}
+</template>
+
 <template name="item">
-  <h2 class="pubtit inline">{{title}}</h2>
-  <a class="all-index inline">#{{index}}</a>
-  <p class="author"><p class="author-index inline hidden">#{{authorIndex}}</p> by <a class='info-author'>{{authorName}}</a></p>
-  <div id="pubconerr" hidden>
-    <p class="error">{{contentError}}</p>
+  <div class="item">
+    <h2 class="pubtit inline">{{title}}</h2>
+    <a class="all-index inline">#{{index}}</a>
+    <p class="author"><p class="author-index inline hidden">#{{authorIndex}}</p> by <a class='info-author'>{{authorName}}</a></p>
+    <div class="pubconerr" hidden>
+      <p class="error">{{contentError}}</p>
+    </div>
+    <pre class="pubcon">{{content}}<img class="pubconimg"/></pre>
   </div>
-  <pre class="pubcon">{{content}}<img class="pubconimg"/></pre>
 </template>
 
 <template name="submit">

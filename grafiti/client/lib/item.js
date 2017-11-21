@@ -1,4 +1,3 @@
-var onRendered = [];
 // hardcoded utf8
 function bytesToStr(bytes) {
     var str = "";
@@ -50,22 +49,21 @@ function bytesToBlob(bytes, sliceSize, contentType) {
 }
 
 function hidePubContentError() {
-    var pubconerr= document.getElementById('pubconerr');
-    if (pubconerr == undefined) {
+    if (this.pubconerr == undefined) {
         // if not yet renderd, will render as hidden
         return;
     }
-    pubconerr.hidden = true;
+    this.pubconerr.hidden = true;
 }
 
 function setCurrentIndex(index, result) {
     console.log("setCurrentIndex("+index+")");
     this.contentError.set('');
-    hidePubContentError();
+    hidePubContentError.bind(this)();
     this.title.set(result[2]);
     console.log(result[2].length + result[3].length / 2 - 1);
     if (this.imgView == undefined) {
-        onRendered.push(function() { setCurrentIndex.bind(this)(index, result);}.bind(this));
+        this.onRendered.push(function() { setCurrentIndex.bind(this)(index, result);}.bind(this));
         return;
     }
     if (Media.isImg(result[2])) {
@@ -117,7 +115,7 @@ function onAuthorMouseout() {
 function onFilterAuthor() {
     var authorLink = this.infoAuthor;
     if (authorLink == undefined) {
-        onRendered.push(onFilterAuthor.bind(this));
+        this.onRendered.push(onFilterAuthor.bind(this));
         return;
     }
     var compositionIndex = this.overallIndex;
@@ -131,6 +129,7 @@ function onFilterAuthor() {
 }
 
 Template.item.onCreated(function () {
+    this.onRendered = [];
     console.log("onCreated");
     this.title = new ReactiveVar("Loading...");
     this.content = new ReactiveVar("");
@@ -138,17 +137,17 @@ Template.item.onCreated(function () {
     this.authorUrl = new ReactiveVar("");
     this.authorAddress = new ReactiveVar("");
     this.contentError = new ReactiveVar("");
+    console.log(this.data);
     this.filterAuthorIndex = this.data.filterAuthorIndex;
     this.filterAuthor = this.data.filterAuthor;
     this.index = this.data.index;
-    console.log(this.data);
-    console.log(this);
     Pub.get(this.index, setCurrentIndex.bind(this));
     // TODO loading appearance
 });
 
 Template.item.onRendered(function () {
     console.log("onRendered");
+    this.contentErrorDiv = this.find('.pubconerr');
     this.imgView = this.find('.pubconimg');
     this.imgView.addEventListener('load', function() {
         console.log("img loaded");
@@ -156,14 +155,14 @@ Template.item.onRendered(function () {
     this.imgView.addEventListener('error', function(e) {
         console.log("img load error");
         console.error(e);
-        document.getElementById('pubconerr').hidden=false;
+        this.contentErrorDiv.hidden=false;
         this.contentError.set("Failed to load image." + Media.contentHelp(this.title.get()));
-    });
+    }.bind(this));
     this.overallIndex = this.find('.all-index');
     this.authorIndex = this.find('.author-index');
     this.infoAuthor = this.find('.info-author');
-    while (onRendered.length > 0) {
-        onRendered.pop()();
+    while (this.onRendered.length > 0) {
+        this.onRendered.pop()();
     }
 });
 
