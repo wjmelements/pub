@@ -1,5 +1,4 @@
 var onRendered = [];
-var filterAuthor = undefined;//XXX
 // hardcoded utf8
 function bytesToStr(bytes) {
     var str = "";
@@ -61,7 +60,6 @@ function hidePubContentError() {
 
 function setCurrentIndex(index, result) {
     console.log("setCurrentIndex("+index+")");
-    console.log(this);
     this.contentError.set('');
     hidePubContentError();
     this.title.set(result[2]);
@@ -89,13 +87,14 @@ function setCurrentIndex(index, result) {
     setAuthorName.bind(this)();
     var authorUrl="https://"+networkPrefix()+"etherscan.io/address/"+address;
     this.authorUrl.set(authorUrl);
+    onFilterAuthor.bind(this)();
 }
 
 function setAuthorName() {
     var address = this.authorAddress.get();
     Pub.getAuthorName(address, function(address, name) {
         if (name === undefined || name == "") {
-            if (filterAuthor != address) {
+            if (this.filterAuthor != address) {
                 name = "Anonymous";
             } else {
                 name = address;
@@ -115,6 +114,22 @@ function onAuthorMouseout() {
     setAuthorName.bind(this)();
 }
 
+function onFilterAuthor() {
+    var authorLink = this.infoAuthor;
+    if (authorLink == undefined) {
+        onRendered.push(onFilterAuthor.bind(this));
+        return;
+    }
+    var compositionIndex = this.overallIndex;
+    if (this.filterAuthor == undefined) {
+        authorLink.href = getAuthorLink.bind(this)();
+        compositionIndex.removeAttribute('href');
+    } else {
+        authorLink.removeAttribute('href');
+        compositionIndex.href = '/browse/'+this.index;
+    }
+}
+
 Template.item.onCreated(function () {
     console.log("onCreated");
     this.title = new ReactiveVar("Loading...");
@@ -123,7 +138,8 @@ Template.item.onCreated(function () {
     this.authorUrl = new ReactiveVar("");
     this.authorAddress = new ReactiveVar("");
     this.contentError = new ReactiveVar("");
-    this.filterAuthorIndex = new ReactiveVar(0);
+    this.filterAuthorIndex = this.data.filterAuthorIndex;
+    this.filterAuthor = this.data.filterAuthor;
     this.index = this.data.index;
     console.log(this.data);
     console.log(this);
@@ -143,6 +159,9 @@ Template.item.onRendered(function () {
         document.getElementById('pubconerr').hidden=false;
         this.contentError.set("Failed to load image." + Media.contentHelp(this.title.get()));
     });
+    this.overallIndex = this.find('.all-index');
+    this.authorIndex = this.find('.author-index');
+    this.infoAuthor = this.find('.info-author');
     while (onRendered.length > 0) {
         onRendered.pop()();
     }
@@ -172,7 +191,7 @@ Template.item.helpers({
     return Template.instance().contentError.get();
   },
   authorIndex() {
-    return Template.instance().filterAuthorIndex.get();
+    return Template.instance().filterAuthorIndex;
   },
 });
 

@@ -1,15 +1,9 @@
-var filterAuthor = null;
-var filterAuthorIndex = new ReactiveVar(0); // XXX
 var onRendered = [];
-function getAuthorLink() {
-    // XXX
-}
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
         var path = context.path;
         if (path.startsWith('/browse/')) {
-            filterAuthor = null;
             var index = parseInt(context.path.substring(8));
             //Pub.get(index, setCurrentIndex);
             BlazeLayout.reset();
@@ -20,26 +14,29 @@ Index = {
             
             var source = path.substring(8, slashLoc == -1 ? undefined : slashLoc);
 
-            filterAuthor = source;
             if (slashLoc == -1) {
                 Pub.getAuthorPublicationCount(source, function(address, count) {
-                    filterAuthorIndex.set(count-1);
+                    var authorIndex = count - 1;
+                    Pub.getAuthorPublicationIndex(source, authorIndex, function(address, index) {
+                        BlazeLayout.reset();
+                        BlazeLayout.render('main', { main:"info", index:index, filterAuthor:source, filterAuthorIndex:authorIndex });
+                        updateButtons(index, source, authorIndex);
+                    });
                     updateButtons();
                     //Pub.getLastBy(source, setCurrentIndex);
                 });
             } else {
-                var index = parseInt(path.substring(slashLoc + 1));
-                filterAuthorIndex.set(index);
-                Pub.getAuthorPublicationIndex(source,index, function(address, index) {
+                var authorIndex = parseInt(path.substring(slashLoc + 1));
+                Pub.getAuthorPublicationIndex(source,authorIndex, function(address, index) {
+                    BlazeLayout.reset();
+                    BlazeLayout.render('main', { main:"info", index:index, filterAuthor:source, filterAuthorIndex:authorIndex });
+                    updateButtons(index, source, authorIndex);
                     //Pub.get(index, setCurrentIndex);
                 });
             }
         } else {
-            filterAuthor = null;
-            filterAuthorIndex.set(0);
             //Pub.getLast(setCurrentIndex);
         }
-        onFilterAuthor();
     },
     onExit: function(context) {
         console.log("Index.onExit");
@@ -47,26 +44,10 @@ Index = {
 };
 
 var onRendered=[];
-function onFilterAuthor() {
-    var authorLink = document.getElementsByClassName('info-author')[0];
-    if (authorLink == undefined) {
-        onRendered.push(onFilterAuthor);
-        return;
-    }
-    var compositionIndex = document.getElementsByClassName('all-index')[0];
-    if (filterAuthor == undefined) {
-        authorLink.href = getAuthorLink();
-        compositionIndex.removeAttribute('href');
-    } else {
-        authorLink.removeAttribute('href');
-        compositionIndex.href = '/browse/'+instance_index.get();
-    }
-}
-
-function updateButtons(index) {
+function updateButtons(index, filterAuthor, filterAuthorIndex) {
     var nextButton = document.getElementById("next");
     if (nextButton == null) {
-        onRendered.push(function() {updateButtons(index);});
+        onRendered.push(function() {updateButtons(index,filterAuthor,filterAuthorIndex);});
         return;
     }
     var prevButton = document.getElementById("prev");
@@ -75,18 +56,19 @@ function updateButtons(index) {
       console.log(filterAuthor);
       authorIndex.classList.remove("hidden");
       Pub.getAuthorPublicationCount(filterAuthor, function (source, count) {
-          if (filterAuthorIndex.get() + 1 < count) {
-            nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex.get()+1);
+          if (filterAuthorIndex + 1 < count) {
+            nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex+1);
           } else {
             nextButton.removeAttribute('href');
           }
-          if (filterAuthorIndex.get() - 1 >= 0) {
-            prevButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex.get()-1);
+          if (filterAuthorIndex - 1 >= 0) {
+            prevButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex-1);
           } else {
             prevButton.removeAttribute('href');
           }
       });
     } else {
+      console.log(filterAuthor);
       authorIndex.classList.add("hidden");
       if (index + 1 < Pub.size()) {
         nextButton.href = "/browse/"+(index+1);
