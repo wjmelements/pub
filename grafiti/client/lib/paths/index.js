@@ -22,7 +22,6 @@ Index = {
                         BlazeLayout.render('main', { main:"info", index:index, filterAuthor:source, filterAuthorIndex:authorIndex });
                         updateButtons(index, source, authorIndex);
                     });
-                    updateButtons();
                     //Pub.getLastBy(source, setCurrentIndex);
                 });
             } else {
@@ -43,7 +42,6 @@ Index = {
     },
 };
 
-var onRendered=[];
 function updateButtons(index, filterAuthor, filterAuthorIndex) {
     var nextButton = document.getElementById("next");
     if (nextButton == null) {
