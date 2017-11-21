@@ -1,6 +1,12 @@
+var formerLastIndex;
 function init() {
+    console.log("init");
     Pub.getLastIndex(function(lastIndex) {
         console.log(lastIndex);
+        if (formerLastIndex != lastIndex) {
+            formerLastIndex = lastIndex;
+            BlazeLayout.reset();
+        }
         BlazeLayout.render('main', { main:"feed", index:lastIndex });
     });
 }

@@ -37,13 +37,13 @@ function fetchSize() {
             return;
         }
         var difference = pub_size - result.c[0];
-        pub_size = result.c[0]
+        pub_size = result.c[0];
         while (onSize.length > 0) {
             onSize.pop()();
         }
         if (difference != 0) {
-            while (onResize.length > 0) {
-                onResize.pop()();
+            for (var i = 0; i < onResize.length; i++) {
+                onResize[i]();
             }
         }
     });
