@@ -16,7 +16,6 @@ Template.feed.onCreated(function() {
 Template.feed.helpers({
     hasNext() {
         console.log('hasNext');
-        console.log(Template.instance().data.index);
         return Template.instance().data.index() > 0;
     },
     next() {
