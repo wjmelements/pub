@@ -1,6 +1,6 @@
 FlowRouter.route('/', {
-    triggersEnter: [Index.onEnter],
-    triggersExit: [Index.onExit],
+    triggersEnter: [Feed.onEnter],
+    triggersExit: [Feed.onExit],
     action: function(params, queryParams) {
         console.log("routed:/");
     }
@@ -8,6 +8,7 @@ FlowRouter.route('/', {
 FlowRouter.route('/random', {
     triggersEnter: function (condext, redirect) {
         Pub.getRandomIndex(function (index) {
+            // FIXME this fails when async
             redirect('/browse/'+index);
         });
     },

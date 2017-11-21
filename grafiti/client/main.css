@@ -4,6 +4,9 @@
 .hidden {
   display:none;
 }
+.item {
+  margin-top:0.5em;
+}
 ul.inline {
   display:inline-table;
   margin:0px;

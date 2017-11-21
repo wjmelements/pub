@@ -17,7 +17,6 @@ function onTableChange() {
             switch (j) {
                 case 0:
                     var input = cell.getElementsByTagName('input')[0];
-                    console.log(input && input.value);
                     bytes = parseInt(input && input.value || cell.innerHTML) || 0;
                     break;
                 case 1:

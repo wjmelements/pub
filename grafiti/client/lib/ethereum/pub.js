@@ -140,6 +140,7 @@ Pub = {
             onSize.push(function() {
                 Pub.getRandomIndex(resultFn);
             });
+            return;
         }
         index=Math.floor(Math.random() * pub_size);
         resultFn(index);
@@ -172,6 +173,15 @@ Pub = {
             return;
         }
         return Pub.get(pub_size - 1, resultFn);
+    },
+    getLastIndex: function(resultFn) {
+        if (pub_size == -1) {
+            onSize.push(function() {
+                Pub.getLastIndex(resultFn);
+            });
+            return;
+        }
+        resultFn(pub_size - 1);
     },
     getAuthorName: function(address, resultFn) {
         result = author_map[address];
