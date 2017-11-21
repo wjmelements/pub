@@ -5,7 +5,10 @@
   display:none;
 }
 .item {
-  margin-top:0.5em;
+  margin:0.5em 0 0 8px;
+}
+body {
+  margin:0;
 }
 ul.inline {
   display:inline-table;
