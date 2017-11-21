@@ -52,7 +52,7 @@ a#info-author {
 ul.pages li {
   display:table-cell;
   text-align:center;
-  background-color:#ebf3ff;
+  background-color:#01bbe159;
   border-style:solid;
   border-color:grey;
   border-radius:0px;
@@ -94,7 +94,7 @@ pre.pubcon {
   max-width:90%;
   margin:0 auto 0.5em auto;
   padding:1em;
-  background-color:#ebf3ff;
+  background-color:#01bbe159;
   border-color:grey;
   border-width:thin;
   border-style:solid;
