@@ -129,6 +129,7 @@ function onChangeFile() {
             document.getElementById('submit-preview-img').src = window.URL.createObjectURL(strToBlob(binaryString));
             instance_preview.set('');
         } else {
+            document.getElementById('submit-preview-img').removeAttribute('src');
             instance_preview.set(binaryString);
         }
         estimateGas(instance_title.value.length + fileBytes.length);
