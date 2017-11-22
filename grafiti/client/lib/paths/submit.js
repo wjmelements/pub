@@ -119,7 +119,7 @@ function onChangeFile() {
 }
 
 Template.submit.events({
-    'click input#submit-submit'(event) {
+    'click #submit-submit'(event) {
         var title=instance_title.value;
         if (fileBytes != undefined) {
             console.log("publication size: " + fileBytes.length);
@@ -158,7 +158,7 @@ Template.submit.events({
     'change #submit-file'(event) {
         onChangeFile();
     },
-    'click input#submit-reset'(event) {
+    'click #submit-reset'(event) {
         clearSubmission();
     },
 });

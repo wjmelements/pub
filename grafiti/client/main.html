@@ -82,10 +82,10 @@
   <br>
   Content: <textarea cols="80" rows="4" id="submit-content" type="text" name="content"></textarea>
   <br>
-  <input id="submit-reset" type="reset"/>
-  <input id="submit-submit" type="submit" value="Submit"/>
+  <button id="submit-reset" class="submit-btn">Reset</button>
+  <button id="submit-submit" class="submit-btn" value="Submit">Submit</button>
   or
-  <input id="submit-file" type="file"/>
+  <label class="file-ctn submit-btn">Choose File<input id="submit-file" type="file"/></label>
 
   <div id="too-large" hidden>
     {{> toolarge}}
