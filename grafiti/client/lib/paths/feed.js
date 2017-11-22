@@ -71,5 +71,5 @@ Template.feed.onCreated(function() {
     document.addEventListener('scroll', onScroll);
 });
 Template.feed.onDestroyed(function() {
-    document.removeEventListener(onScroll);
+    document.removeEventListener('scroll', onScroll);
 });
