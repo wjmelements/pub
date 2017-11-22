@@ -11,4 +11,4 @@ function fetchETHPrice() {
     }
     xmlHttp.send(null);
 }
-fetchETHPrice();
+window.addEventListener('load', fetchETHPrice);
