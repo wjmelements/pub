@@ -1,4 +1,3 @@
-var onRendered = [];
 Index = {
     onEnter: function (context, redirect) {
         console.log("Index.onEnter");
@@ -8,7 +7,6 @@ Index = {
             //Pub.get(index, setCurrentIndex);
             BlazeLayout.reset();
             BlazeLayout.render('main', { main: "info", index:index });
-            updateButtons(index);
         } else if (path.startsWith('/source/')) {
             var slashLoc = path.indexOf('/',8);
             
@@ -20,7 +18,6 @@ Index = {
                     Pub.getAuthorPublicationIndex(source, authorIndex, function(address, index) {
                         BlazeLayout.reset();
                         BlazeLayout.render('main', { main:"info", index:index, filterAuthor:source, filterAuthorIndex:authorIndex });
-                        updateButtons(index, source, authorIndex);
                     });
                     //Pub.getLastBy(source, setCurrentIndex);
                 });
@@ -29,7 +26,6 @@ Index = {
                 Pub.getAuthorPublicationIndex(source,authorIndex, function(address, index) {
                     BlazeLayout.reset();
                     BlazeLayout.render('main', { main:"info", index:index, filterAuthor:source, filterAuthorIndex:authorIndex });
-                    updateButtons(index, source, authorIndex);
                     //Pub.get(index, setCurrentIndex);
                 });
             }
@@ -43,14 +39,13 @@ Index = {
     },
 };
 
-function updateButtons(index, filterAuthor, filterAuthorIndex) {
+function updateButtons() {
     var nextButton = document.getElementById("next");
-    if (nextButton == null) {
-        onRendered.push(function() {updateButtons(index,filterAuthor,filterAuthorIndex);});
-        return;
-    }
     var prevButton = document.getElementById("prev");
     var authorIndex = document.getElementsByClassName("author-index")[0];
+    var index = this.data.index();
+    var filterAuthor = this.data.filterAuthor && this.data.filterAuthor();
+    var filterAuthorIndex = this.data.filterAuthorIndex && this.data.filterAuthorIndex();
     if (filterAuthor) {
       console.log(filterAuthor);
       authorIndex.classList.remove("hidden");
@@ -82,15 +77,21 @@ function updateButtons(index, filterAuthor, filterAuthorIndex) {
     }
 }
 
+Template.info.onCreated(function() {
+    this.updateButtons = updateButtons.bind(this);
+    Pub.resizeSubscribe(this.updateButtons);
+});
+
+Template.info.onDestroyed(function() {
+    Pub.resizeUnsubscribe(this.updateButtons);
+});
+
 Template.info.onRendered(function () {
-    while (onRendered.length > 0) {
-        onRendered.pop()();
-    }
+    this.updateButtons();
 });
 
 Template.info.helpers({
     index() {
-        console.log(this.index());
         return this.index();
     }
 });
