@@ -1,12 +1,13 @@
 var formerLastIndex;
+var lastLoad = new ReactiveVar(Infinity);
 function init() {
     console.log("init");
     Pub.getLastIndex(function(lastIndex) {
-        console.log(lastIndex);
         if (formerLastIndex != lastIndex) {
             formerLastIndex = lastIndex;
             BlazeLayout.reset();
         }
+        lastLoad.set(Math.max(0, Math.min(lastLoad.get(), lastIndex - 10)));
         BlazeLayout.render('main', { main:"feed", index:lastIndex });
     });
 }
@@ -21,16 +22,15 @@ Feed = {
     },
 };
 
+
 Template.feeditem.onCreated(function() {
     this.index = new ReactiveVar(this.data.index);
 });
 Template.feeditem.helpers({
     hasNext() {
-        console.log('hasNext');
-        return Template.instance().index.get() > 0;
+        return Template.instance().index.get() > lastLoad.get();
     },
     next() {
-        console.log('next');
         var next = Template.instance().index.get() - 1;
         return next;
     }
@@ -59,4 +59,17 @@ Template.feed.events({
         var refresh = event.target;
         setRotation(refresh, lastRotation + 360);
     },
+});
+
+function onScroll() {
+    var scrollingElement = document.scrollingElement;
+    if (scrollingElement.scrollTop + scrollingElement.clientHeight >= scrollingElement.scrollHeight * .95) {
+        lastLoad.set(Math.max(0, lastLoad.get() - 10));
+    }
+}
+Template.feed.onCreated(function() {
+    document.addEventListener('scroll', onScroll);
+});
+Template.feed.onDestroyed(function() {
+    document.removeEventListener(onScroll);
 });

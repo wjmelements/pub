@@ -129,14 +129,12 @@ function onFilterAuthor() {
 
 Template.item.onCreated(function () {
     this.onRendered = [];
-    console.log("onCreated");
     this.title = new ReactiveVar("Loading...");
     this.content = new ReactiveVar("");
     this.authorName = new ReactiveVar("Loading...");
     this.authorUrl = new ReactiveVar("");
     this.authorAddress = new ReactiveVar("");
     this.contentError = new ReactiveVar("");
-    console.log(this.data);
     this.filterAuthorIndex = this.data.filterAuthorIndex;
     this.filterAuthor = this.data.filterAuthor;
     this.index = this.data.index;
@@ -145,7 +143,6 @@ Template.item.onCreated(function () {
 });
 
 Template.item.onRendered(function () {
-    console.log("onRendered");
     this.contentErrorDiv = this.find('.pubconerr');
     this.imgView = this.find('.pubconimg');
     this.imgView.addEventListener('load', function() {
