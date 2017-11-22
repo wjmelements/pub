@@ -31,6 +31,9 @@ var pub_map = {};
 var author_map = {};
 var pubcount_map = {};
 var author_imap = {};
+if (localStorage) {
+    pub_size = parseInt(localStorage.getItem('size')) || -1;
+}
 function fetchSize() {
     console.log("Fetching Pub size");
     pub.size(function (error, result) {
@@ -40,6 +43,9 @@ function fetchSize() {
         }
         var difference = pub_size - result.c[0];
         pub_size = result.c[0];
+        if (localStorage) {
+            localStorage.setItem('size', pub_size);
+        }
         while (onSize.length > 0) {
             onSize.pop()();
         }
