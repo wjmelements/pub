@@ -33,10 +33,12 @@ Net = {
         refreshHandlers.push(refreshHandler);
     },
 }
-if (typeof web3 === 'object')
-{
-    if (typeof web3.version !== 'undefined') {
-        nId = web3.version.network;
-        Net.refreshNetwork();
+window.addEventListener('load', function() {
+    if (typeof web3 === 'object')
+    {
+        if (typeof web3.version !== 'undefined') {
+            nId = web3.version.network;
+            Net.refreshNetwork();
+        }
     }
-}
+});
