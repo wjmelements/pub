@@ -67,12 +67,11 @@ function setCurrentIndex(index, result) {
         return;
     }
     if (Media.isImg(result[2])) {
-        console.log("img");
+        console.log("loading img");
         this.imgView.src = window.URL.createObjectURL(bytesToBlob(result[3]), Media.contentType(result[2]));
         this.imgView.hidden=false;
         this.content.set(undefined);
     } else {
-        console.log("not img");
         this.imgView.removeAttribute('src');
         this.imgView.hidden=true;
         this.content.set(bytesToStr(result[3]));
