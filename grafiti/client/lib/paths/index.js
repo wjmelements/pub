@@ -52,13 +52,17 @@ function updateButtons() {
       Pub.getAuthorPublicationCount(filterAuthor, function (source, count) {
           if (filterAuthorIndex + 1 < count) {
             nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex+1);
+            nextButton.parentElement.classList.remove('disabled');
           } else {
             nextButton.removeAttribute('href');
+            nextButton.parentElement.classList.add('disabled');
           }
           if (filterAuthorIndex - 1 >= 0) {
             prevButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex-1);
+            prevButton.parentElement.classList.remove('disabled');
           } else {
             prevButton.removeAttribute('href');
+            prevButton.parentElement.classList.add('disabled');
           }
       });
     } else {
@@ -66,13 +70,17 @@ function updateButtons() {
       authorIndex.classList.add("hidden");
       if (index + 1 < Pub.size()) {
         nextButton.href = "/browse/"+(index+1);
+        nextButton.parentElement.classList.remove('disabled');
       } else {
         nextButton.removeAttribute('href');
+        nextButton.parentElement.classList.add('disabled');
       }
       if (index - 1 >= 0) {
         prevButton.href = "/browse/"+(index-1);
+        prevButton.parentElement.classList.remove('disabled');
       } else {
         prevButton.removeAttribute('href');
+        prevButton.parentElement.classList.add('disabled');
       }
     }
 }

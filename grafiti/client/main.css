@@ -59,6 +59,9 @@ ul.pages li {
   border-radius:0px;
   border-width:thin;
 }
+ul.pages li.disabled {
+  background-color:#90a4a959;
+}
 ul.pages a {
   padding:4px;
   display:block;
