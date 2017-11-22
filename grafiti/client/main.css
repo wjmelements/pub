@@ -143,6 +143,7 @@ table input {
   padding:1em;
   border-radius:0.5em;
   border-color:black;
+  background-color:white;
   border-width:thin;
   border-style:solid;
   cursor:pointer;
