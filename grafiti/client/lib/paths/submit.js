@@ -32,7 +32,7 @@ function showTransactionHash(hash) {
     document.getElementById('onSuccess').hidden = false;
     document.getElementById('success-etherscan').href = 'https://'+networkPrefix()+'etherscan.io/tx/'+hash;
 }
-
+var onRendered = [];
 Template.submit.onRendered(function () {
     document.getElementById("withoutweb3").hidden = (typeof web3 !== 'undefined') && (typeof web3.currentProvider.host === 'undefined');
     instance_title = document.getElementById('submit-title');
@@ -40,7 +40,20 @@ Template.submit.onRendered(function () {
     instance_preview_title = document.getElementById('submit-preview-title');
     onChange();
     onChangeTitle();
+    while (onRendered.length > 0) {
+        onRendered.pop()();
+    }
 });
+
+function estimateGas(bytes) {
+    var bytesInput = document.getElementsByClassName('custom-bytes')[0];
+    if (!bytesInput) {
+        onRendered.push(function(){estimateGas(bytes);});
+        return;
+    }
+    bytesInput.value = bytes;
+    Gas.onTableChange();
+}
 
 function onChange() {
     if (fileBytes != undefined) {
@@ -48,6 +61,7 @@ function onChange() {
     }
     document.getElementById('too-large').hidden = instance_content.value.length <= 9000;
     instance_preview.set(instance_content.value);
+    estimateGas(instance_title.value.length + instance_content.value.length);
 }
 
 Template.submit.helpers({
@@ -62,6 +76,7 @@ function onChangeTitle() {
         title = "Preview";
     }
     instance_preview_title.innerHTML = title;
+    estimateGas(instance_title.value.length + (fileBytes && fileBytes.length || instance_content.value.length));
 }
 
 function strToBlob(b64Data, contentType, sliceSize) {
@@ -116,6 +131,7 @@ function onChangeFile() {
         } else {
             instance_preview.set(binaryString);
         }
+        estimateGas(instance_title.value.length + fileBytes.length);
     };
     reader.readAsArrayBuffer(file);
     instance_title.value = file.name;

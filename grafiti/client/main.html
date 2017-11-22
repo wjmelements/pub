@@ -97,11 +97,59 @@
     <h2 id="submit-preview-title" class="pubtit">Preview</h2>
     <pre id="submit-preview" class="pubcon">{{preview}}<img id="submit-preview-img"/></pre>
   </div>
+  <div class="pubcon">
+    {{> gas}}
+  </div>
   </div>
 </template>
 
 <template name="success">
   <p class="success">Transaction submitted! Watch it on <a target="_blank" id="success-etherscan">Etherscan</a>, then refresh.</p>
+</template>
+
+<template name="gas">
+  <table id="gas-estimate">
+    <tr>
+      <th>Bytes</th>
+      <th>Approx. Gas</th>
+      <th>@2 Gwei</th>
+      <th>USD</th>
+      <th><input class="gas-price" type="number" placeholder="Custom" value="1.01"/> Gwei</th>
+      <th>USD</th>
+    </tr>
+    <tr>
+      <td><input class="custom-bytes" type="number" placeholder="Custom"/></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>500</td>
+      <td>340367</td>
+      <td>0.000680734</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1000</td>
+      <td>514367</td>
+      <td>0.001028734</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>8000</td>
+      <td>2950367</td>
+      <td>0.005900734</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
 </template>
 
 <template name="about">
@@ -152,53 +200,13 @@
   <h3>How much does it cost to publish?</h3>
     <div>
     <p class="pubcon">
-      The cost of publication depends on the bytes in the title and content as well as the specified gas price. Gas is explained later on this page.
+      The cost of publication depends on the bytes in the title and content as well as the specified gas price.
+      Gas is explained later on this page.
     </p>
     </div>
     <div>
     <p class="pubcon">
-      <table id="gas-estimate">
-        <tr>
-          <th>Bytes</th>
-          <th>Approx. Gas</th>
-          <th>@2 Gwei</th>
-          <th>USD</th>
-          <th><input class="gas-price" type="number" placeholder="Custom"/> Gwei</th>
-          <th>USD</th>
-        </tr>
-        <tr>
-          <td><input class="custom-bytes" type="number" placeholder="Custom"/></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>500</td>
-          <td>340367</td>
-          <td>0.000680734</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>1000</td>
-          <td>514367</td>
-          <td>0.001028734</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>8000</td>
-          <td>2950367</td>
-          <td>0.005900734</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
+      {{> gas}}
     </p>
     </div>
   <h3>How do I get ether?</h3>
