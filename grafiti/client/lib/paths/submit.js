@@ -5,6 +5,7 @@ Submit = {
     },
     onExit: function(context) {
         console.log("Submit.onExit");
+        clearState();
     },
 };
 
@@ -12,9 +13,13 @@ var instance_title;
 var instance_content;
 var instance_preview = new ReactiveVar('');
 var instance_preview_title;
+var fileBytes;
+function clearState() {
+    fileBytes = undefined;
+}
 function clearSubmission() {
     console.log('clearSubmission');
-    fileBytes = undefined;
+    clearState();
     instance_title.value = '';
     instance_content.value = '';
     document.getElementById('submit-file').value = '';
@@ -33,9 +38,10 @@ Template.submit.onRendered(function () {
     instance_title = document.getElementById('submit-title');
     instance_content = document.getElementById('submit-content');
     instance_preview_title = document.getElementById('submit-preview-title');
+    onChange();
+    onChangeTitle();
 });
 
-var fileBytes;
 function onChange() {
     if (fileBytes != undefined) {
         return;
