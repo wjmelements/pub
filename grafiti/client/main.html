@@ -76,9 +76,6 @@
 
 <template name="submit">
   <div class="item">
-  <div id="withoutweb3" hidden>
-    {{> noweb3}}
-  </div>
   Title: <input id= "submit-title" type="text" name="title"/>
   <br>
   Content: <textarea cols="80" rows="4" id="submit-content" type="text" name="content"></textarea>
@@ -99,13 +96,18 @@
   <div>
     <button id="submit-submit" class="submit-btn" value="Submit">Submit</button>
   </div>
+  <div id="withoutweb3" hidden>
+    {{> noweb3}}
+  </div>
   <div id="legal">
     {{> warning}}
   </div>
   <div id="onSuccess" hidden>
   {{> success}}
   </div>
-  <h2 class="pubtit inline">Estimated Publication Cost</h2>
+  <div>
+    <h2 class="pubtit inline">Estimated Publication Cost</h2>
+  </div>
   <div class="pubcon">
     {{> gas}}
   </div>
