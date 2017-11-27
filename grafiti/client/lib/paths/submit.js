@@ -9,6 +9,8 @@ Submit = {
     },
 };
 
+var bytesLimit = 9100;
+
 var instance_title;
 var instance_content;
 var instance_preview = new ReactiveVar('');
@@ -59,7 +61,7 @@ function onChange() {
     if (fileBytes != undefined) {
         return;
     }
-    document.getElementById('too-large').hidden = instance_content.value.length <= 9000;
+    document.getElementById('too-large').hidden = instance_content.value.length <= bytesLimit;
     instance_preview.set(instance_content.value);
     estimateGas(instance_title.value.length + instance_content.value.length);
 }
@@ -67,13 +69,16 @@ function onChange() {
 Template.submit.helpers({
   preview() {
     return instance_preview.get();
+  },
+  index() {
+    return Pub.size();
   }
 });
 
 function onChangeTitle() {
     var title = instance_title.value;
     if (title.length == 0) {
-        title = "Preview";
+        title = "Untitled";
     }
     instance_preview_title.innerHTML = title;
     estimateGas(instance_title.value.length + (fileBytes && fileBytes.length || instance_content.value.length));
@@ -115,7 +120,7 @@ function onChangeFile() {
         var arrayBuffer = this.result;
         console.log("onload");
         var array = new Uint8Array(arrayBuffer);
-        if (array.length > 9100) {
+        if (array.length > bytesLimit) {
             document.getElementById('too-large').hidden = false;
             return;
         }
