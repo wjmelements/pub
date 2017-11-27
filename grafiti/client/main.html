@@ -44,10 +44,14 @@
   {{> item index=index filterAuthorIndex=filterAuthorIndex filterAuthor=filterAuthor }}
 </template>
 
-<template name="feed">
+<template name="refresh">
   <div id="refresh">
     <img src="/images/refresh.png"/>
   </div>
+</template>
+
+<template name="feed">
+  {{> refresh}}
   {{> feeditem index=index filterAuthorIndex=filterAuthorIndex fitlerAuthor=filterAuthor }}
 </template>
 
@@ -75,15 +79,11 @@
   <div id="withoutweb3" hidden>
     {{> noweb3}}
   </div>
-  <div id="legal">
-    {{> warning}}
-  </div>
   Title: <input id= "submit-title" type="text" name="title"/>
   <br>
   Content: <textarea cols="80" rows="4" id="submit-content" type="text" name="content"></textarea>
   <br>
   <button id="submit-reset" class="submit-btn">Reset</button>
-  or
   <label class="file-ctn submit-btn">Choose File<input id="submit-file" type="file"/></label>
 
   <div id="too-large" hidden>
@@ -98,6 +98,9 @@
   </div>
   <div>
     <button id="submit-submit" class="submit-btn" value="Submit">Submit</button>
+  </div>
+  <div id="legal">
+    {{> warning}}
   </div>
   <div id="onSuccess" hidden>
   {{> success}}
