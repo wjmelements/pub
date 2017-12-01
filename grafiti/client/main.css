@@ -132,8 +132,8 @@ table input {
 }
 #refresh img {
   margin-right:1em;
-  width:3em;
-  height:3em;
+  width:2em;
+  height:2em;
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
   -o-transition: all 0.5s ease-out;
