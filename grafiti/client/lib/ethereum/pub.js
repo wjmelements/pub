@@ -230,7 +230,6 @@ Pub = {
         fetchPublicationIndex(address, index, resultFn);
     },
     getLastBy: function (address, resultFn) {
-        console.log("getLastBy");
         Pub.getAuthorPublicationCount(address, function (address, count) {
             if (count == 0) {
                 // TODO no publications for address

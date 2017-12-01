@@ -1,21 +1,31 @@
 var formerLastIndex;
 var lastLoad = new ReactiveVar(Infinity);
-function init() {
-    console.log("init");
+function initFeed(render) {
     Pub.getLastIndex(function(lastIndex) {
         if (formerLastIndex != lastIndex) {
             formerLastIndex = lastIndex;
-            BlazeLayout.reset();
+            if (render) BlazeLayout.reset();
         }
         lastLoad.set(Math.max(0, Math.min(lastLoad.get(), lastIndex - 10)));
-        BlazeLayout.render('main', { main:"feed", index:lastIndex });
+        if (render) BlazeLayout.render('main', { main:"feed", index:lastIndex });
     });
+}
+function init(render) {
+    if (this.filterAuthor.get()) {
+        Pub.getAuthorPublicationCount(this.filterAuthor.get(), function(address, count) {
+            lastLoad.set(Math.max(0, Math.min(lastLoad.get(), count - 10)));
+        });
+    } else {
+        initFeed(render);
+    }
+}
+function onResize() {
+    init.bind(this)(true);
 }
 Feed = {
     onEnter: function (context, redirect) {
         console.log("Feed.onEnter");
-        Pub.resizeSubscribe(init);
-        init();
+        initFeed(true);
     },
     onExit: function (context, redirect) {
         console.log("Feed.onExit");
@@ -25,15 +35,37 @@ Feed = {
 
 Template.feeditem.onCreated(function() {
     this.index = new ReactiveVar(this.data.index);
+    this.filterAuthorIndex = new ReactiveVar(this.data.filterAuthorIndex);
+    this.filterAuthor = new ReactiveVar(this.data.filterAuthor);
+    this.nextFilterAuthorIndex = new ReactiveVar(this.filterAuthorIndex.get() - 1);
+    this.next = new ReactiveVar(-1);
+    if (this.filterAuthor.get()) {
+        if (this.nextFilterAuthorIndex.get() >= 0) {
+            Pub.getAuthorPublicationIndex(this.filterAuthor.get(), this.nextFilterAuthorIndex.get(), function (address, index) {
+                this.next.set(index);
+            }.bind(this));
+        }
+    } else {
+        this.next.set(this.index.get() - 1);
+    }
 });
 Template.feeditem.helpers({
     hasNext() {
-        return Template.instance().index.get() > lastLoad.get();
+        return Template.instance().next.get() >= lastLoad.get();
     },
     next() {
-        var next = Template.instance().index.get() - 1;
+        return Template.instance().next.get();
+    },
+    nextFilterAuthorIndex() {
+        var next = Template.instance().nextFilterAuthorIndex.get();
         return next;
-    }
+    },
+    filterAuthor() {
+        return Template.instance().filterAuthor.get();
+    },
+    filterAuthorIndex() {
+        return Template.instance().filterAuthorIndex.get();
+    },
 });
 var lastRotation = 0;
 function setRotation(refresh, deg) {
@@ -69,7 +101,12 @@ function onScroll() {
 }
 Template.feed.onCreated(function() {
     document.addEventListener('scroll', onScroll);
+    this.filterAuthor = new ReactiveVar(this.data.filterAuthor ? this.data.filterAuthor() : undefined);
+    this.onResize = onResize.bind(this);
+    Pub.resizeSubscribe(this.onResize);
+    init.bind(this)();
 });
 Template.feed.onDestroyed(function() {
     document.removeEventListener('scroll', onScroll);
+    Pub.resizeUnsubscribe(this.onResize);
 });

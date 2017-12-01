@@ -17,9 +17,8 @@ Index = {
                     var authorIndex = count - 1;
                     Pub.getAuthorPublicationIndex(source, authorIndex, function(address, index) {
                         BlazeLayout.reset();
-                        BlazeLayout.render('main', { main:"info", index:index, filterAuthor:source, filterAuthorIndex:authorIndex });
+                        BlazeLayout.render('main', { main:"feed", index:index, filterAuthor:source, filterAuthorIndex:authorIndex });
                     });
-                    //Pub.getLastBy(source, setCurrentIndex);
                 });
             } else {
                 var authorIndex = parseInt(path.substring(slashLoc + 1));

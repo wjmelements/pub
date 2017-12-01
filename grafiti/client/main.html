@@ -52,13 +52,13 @@
 
 <template name="feed">
   {{> refresh}}
-  {{> feeditem index=index filterAuthorIndex=filterAuthorIndex fitlerAuthor=filterAuthor }}
+  {{> feeditem index=index filterAuthorIndex=filterAuthorIndex filterAuthor=filterAuthor }}
 </template>
 
 <template name="feeditem">
   {{> item index=index filterAuthorIndex=filterAuthorIndex filterAuthor=filterAuthor }}
   {{#if hasNext}}
-    {{> feeditem index=next }}
+    {{> feeditem index=next filterAuthorIndex=nextFilterAuthorIndex filterAuthor=filterAuthor }}
   {{/if}}
 </template>
 
