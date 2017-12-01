@@ -1,6 +1,6 @@
 # Pub
 Pub is the archive of the Internet.
-Ethereum powers Pub, and Pub powers Grafiti, a Dapp hosted at <http://grafiti.online>.
+Ethereum powers Pub, and Pub powers Grafiti, a Dapp hosted at <https://grafiti.online>.
 
 ## Why Use Pub
 Pub is the cheapest censorship-resistant publication platform available.
@@ -18,7 +18,7 @@ You should never interact with a contract you do not understand.
 ### Get a Web 3.0 Capable Web Browser
 
 #### Option: grafiti.online
-[Grafiti](http://grafiti.online) is a website facilitating browsing and submission.
+[Grafiti](https://grafiti.online) is a website facilitating browsing and submission.
 Metamask is an add-on for Chrome, Firefox, Opera, and Edge that allows them to interface with Ethereum.
 
 #### Option: Using the Mist Contract
@@ -36,7 +36,7 @@ The ABI is:
 
 Optionally, verify the published contract matches the bytes generated from `solc --bin pub.sol`.
 The output bytes will never change because the compiler version is specified.
-[Etherscan.io](http://etherscan.io/contract/0x2a0f713aA953442EacA9EA47083f656170e67BA4) does this automatically, but be cautious trusting third parties with this responsibility.
+[Etherscan.io](https://etherscan.io/contract/0x2a0f713aA953442EacA9EA47083f656170e67BA4) does this automatically, but be cautious trusting third parties with this responsibility.
 
 ### Obtain a key
 Generate a key for the Ethereum Network.
