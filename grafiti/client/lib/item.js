@@ -21,7 +21,9 @@ function bytesToStr(bytes) {
                 }
             }
         }
-        str += String.fromCodePoint(codePoint);
+        try {
+            str += String.fromCodePoint(codePoint);
+        } catch(e){console.error(e);}
     }
     return str;
 }
