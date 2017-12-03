@@ -30,6 +30,14 @@ p.success {
   padding:15px;
   border-radius:15px;
   color:white;
+  display:inline-block;
+}
+div .info {
+  display:inline-block;
+  background-color:#6fbf97;
+  padding:15px;
+  border-radius:15px;
+  color:white;
 }
 p.error {
   display:inline-block;
@@ -47,7 +55,7 @@ h2.pubtit {
 p.author {
   margin-top:0px;
 }
-a#info-author {
+a.info-author {
   font-weight:bold;
 }
 ul.pages li {
@@ -85,6 +93,10 @@ ul.pages {
   display:block;
   margin:0px auto;
   width:90%;
+  padding:1em;
+  border-radius:0.5em;
+}
+#sign-name {
   padding:1em;
   border-radius:0.5em;
 }

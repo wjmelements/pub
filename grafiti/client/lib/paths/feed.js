@@ -32,7 +32,6 @@ Feed = {
     },
 };
 
-
 Template.feeditem.onCreated(function() {
     this.index = new ReactiveVar(this.data.index);
     this.filterAuthorIndex = new ReactiveVar(this.data.filterAuthorIndex);
@@ -76,6 +75,16 @@ function setRotation(refresh, deg) {
     refresh.style.transform       = 'rotate('+deg+'deg)'; 
     lastRotation = deg;
 }
+function onChangeName() {
+    var name = document.getElementById('sign-name').value;
+    name = name || Template.instance().filterAuthor.get();
+    $('.info-author').html(name);
+}
+function showTransactionHash(hash) {
+    console.log(hash);
+    document.getElementById('onSuccess').hidden = false;
+    document.getElementById('success-etherscan').href = 'https://'+networkPrefix()+'etherscan.io/tx/'+hash;
+}
 Template.feed.events({
     'mouseover #refresh'(event) {
         Pub.fetchSize();
@@ -90,6 +99,19 @@ Template.feed.events({
         Pub.fetchSize();
         var refresh = event.target;
         setRotation(refresh, lastRotation + 360);
+    },
+    'change #sign-name'(event) {
+        onChangeName();
+    },
+    'keyup #sign-name'(event) {
+        onChangeName();
+    },
+    'click #sign-btn'(event) {
+        var name = document.getElementById('sign-name').value;
+        console.log(name);
+        Pub.sign(name, function(result) {
+            showTransactionHash(result);
+        });
     },
 });
 
@@ -109,4 +131,10 @@ Template.feed.onCreated(function() {
 Template.feed.onDestroyed(function() {
     document.removeEventListener('scroll', onScroll);
     Pub.resizeUnsubscribe(this.onResize);
+});
+Template.feed.helpers({
+    isMe() {
+        var author = Template.instance().filterAuthor.get();
+        return author && web3.eth.accounts[0] == author;
+    }
 });

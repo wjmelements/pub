@@ -132,6 +132,16 @@ function executePublishBytes(title, content, resultFn) {
     });
 }
 
+function executeSign(name, resultFn) {
+    pub.sign(name, function (error, result) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        resultFn(result);
+    });
+}
+
 Pub = {
     getAddress: function(resultFn) {
         switch (nId) {
@@ -251,4 +261,5 @@ Pub = {
             return elem != resizeFn;
         });
     },
+    sign: executeSign,
 }

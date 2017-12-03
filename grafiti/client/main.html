@@ -59,6 +59,18 @@
 </template>
 
 <template name="feed">
+  {{#if isMe}}
+    <div>
+      <span class="item info">
+        <p>These are your publications. You can sign your name or remain anonymous.</p>
+        <input id="sign-name" type="text" placeholder="Anonymous"/>
+        <button id="sign-btn" class="submit-btn">Sign</button>
+      </span>
+    </div>
+    <div id="onSuccess" class="item" hidden>
+      {{> success}}
+    </div>
+  {{/if}}
   {{> refresh}}
   {{> feeditem index=index filterAuthorIndex=filterAuthorIndex filterAuthor=filterAuthor }}
 </template>
