@@ -27,6 +27,14 @@ Gas = {
     }
 }
 Template.gas.onRendered(function() {
+    web3.eth.getGasPrice(function(error, result){
+        if (error) {
+            console.error(error);
+            return;
+        }
+        document.getElementsByClassName('gas-price')[0].value = result.c[0] / 1e9;
+        Gas.onTableChange();
+    });
     Gas.onTableChange();
 });
 Template.gas.events({
