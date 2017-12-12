@@ -119,6 +119,9 @@
   <div id="withoutweb3" hidden>
     {{> noweb3}}
   </div>
+  <div id="withoutaccount" hidden>
+    {{> noaccount}}
+  </div>
   <div id="legal">
     {{> warning}}
   </div>
@@ -310,6 +313,10 @@
 
 <template name="noweb3">
   <p class="error">Your browser does not support Web3. Web 3.0 support is required to publish with Ethereum. {{> errorHelp}}</p>
+</template>
+
+<template name="noaccount">
+  <p class="error">There seems to be no account associated with your Web3 support. If you are using Metamask, try unlocking your account.</p>
 </template>
 
 <template name="toolarge">

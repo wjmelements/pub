@@ -62,6 +62,7 @@ function fetchPub(index, resultFn) {
     pub.all(index, function (error, result) {
         if (error) {
             console.error(error);
+            fetchPub(index, resultFn);
             return;
         }
         pub_map[index] = result
@@ -73,6 +74,7 @@ function fetchAuthor(address, resultFn) {
     pub.authors(address, function (error, result) {
         if (error) {
             console.error(error);
+            fetchAuthor(address, resultFn);
             return;
         }
         author_map[address] = result;
@@ -88,6 +90,7 @@ function fetchPublicationCount(address, resultFn) {
     pub.publicationCount(address, function (error, result) {
         if (error) {
             console.error(error);
+            fetchPublicationCount(address, resultFn);
             return;
         }
         var emptyArray = [];
@@ -104,6 +107,7 @@ function fetchPublicationIndex(address, index, resultFn) {
     pub.allByAuthor(address, index, function (error, result) {
         if (error) {
             console.error(error);
+            fetchPublicationIndex(address, index, resultFn);
             return;
         }
         result = result.c[0];

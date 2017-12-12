@@ -31,18 +31,33 @@ function clearSubmission() {
     onChange();
     onChangeTitle();
 }
+function checkAccount(refreshId) {
+    var hasWeb3 = (typeof web3 !== 'undefined') && (typeof web3.currentProvider.host === 'undefined');
+    var hasAccount = hasWeb3 && web3 && web3.eth && web3.eth.accounts && (web3.eth.accounts.length > 0);
+    console.log("hasWeb3:"+hasWeb3+",hasAccount:"+hasAccount);
+    document.getElementById("withoutweb3").hidden = hasWeb3;
+    document.getElementById("withoutaccount").hidden = !hasWeb3 || hasAccount;
+    if (hasAccount) {
+        clearInterval(refreshId);
+    } else if (!refreshId) {
+        var refreshIndirect = [];
+        refreshIndirect.push(setInterval(function () {
+            checkAccount(refreshIndirect[0]);
+        }, 2000));
+    }
+}
 function showTransactionHash(hash) {
     document.getElementById('onSuccess').hidden = false;
     document.getElementById('success-etherscan').href = 'https://'+networkPrefix()+'etherscan.io/tx/'+hash;
 }
 var onRendered = [];
 Template.submit.onRendered(function () {
-    document.getElementById("withoutweb3").hidden = (typeof web3 !== 'undefined') && (typeof web3.currentProvider.host === 'undefined');
     instance_title = document.getElementById('submit-title');
     instance_content = document.getElementById('submit-content');
     instance_preview_title = document.getElementById('submit-preview-title');
     onChange();
     onChangeTitle();
+    checkAccount();
     while (onRendered.length > 0) {
         onRendered.pop()();
     }

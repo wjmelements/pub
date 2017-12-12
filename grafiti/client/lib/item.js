@@ -138,7 +138,6 @@ Template.item.onCreated(function () {
     this.authorAddress = new ReactiveVar("");
     this.contentError = new ReactiveVar("");
     this.filterAuthorIndex = this.data.filterAuthorIndex;
-    console.log(this.filterAuthorIndex);
     this.filterAuthor = this.data.filterAuthor;
     this.index = this.data.index;
     Pub.get(this.index, setCurrentIndex.bind(this));
