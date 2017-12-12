@@ -59,11 +59,10 @@ function hidePubContentError() {
 }
 
 function setCurrentIndex(index, result) {
-    console.log("setCurrentIndex("+index+")");
+    console.log("Loading "+index);
     this.contentError.set('');
     hidePubContentError.bind(this)();
     this.title.set(result[2]);
-    console.log(result[2].length + result[3].length / 2 - 1);
     if (this.imgView == undefined) {
         this.onRendered.push(function() { setCurrentIndex.bind(this)(index, result);}.bind(this));
         return;
