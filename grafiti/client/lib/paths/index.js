@@ -41,13 +41,10 @@ Index = {
 function updateButtons() {
     var nextButton = document.getElementById("next");
     var prevButton = document.getElementById("prev");
-    var authorIndex = document.getElementsByClassName("author-index")[0];
     var index = this.data.index();
     var filterAuthor = this.data.filterAuthor && this.data.filterAuthor();
     var filterAuthorIndex = this.data.filterAuthorIndex && this.data.filterAuthorIndex();
     if (filterAuthor) {
-      console.log(filterAuthor);
-      authorIndex.classList.remove("hidden");
       Pub.getAuthorPublicationCount(filterAuthor, function (source, count) {
           if (filterAuthorIndex + 1 < count) {
             nextButton.href = "/source/"+filterAuthor+"/"+(filterAuthorIndex+1);
@@ -65,8 +62,6 @@ function updateButtons() {
           }
       });
     } else {
-      console.log(filterAuthor);
-      authorIndex.classList.add("hidden");
       if (index + 1 < Pub.size()) {
         nextButton.href = "/browse/"+(index+1);
         nextButton.parentElement.classList.remove('disabled');

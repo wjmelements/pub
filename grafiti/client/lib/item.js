@@ -138,6 +138,7 @@ Template.item.onCreated(function () {
     this.authorAddress = new ReactiveVar("");
     this.contentError = new ReactiveVar("");
     this.filterAuthorIndex = this.data.filterAuthorIndex;
+    console.log(this.filterAuthorIndex);
     this.filterAuthor = this.data.filterAuthor;
     this.index = this.data.index;
     Pub.get(this.index, setCurrentIndex.bind(this));
@@ -157,10 +158,15 @@ Template.item.onRendered(function () {
         this.contentError.set("Failed to load image." + Media.contentHelp(this.title.get()));
     }.bind(this));
     this.overallIndex = this.find('.all-index');
-    this.authorIndex = this.find('.author-index');
     this.infoAuthor = this.find('.info-author');
     while (this.onRendered.length > 0) {
         this.onRendered.pop()();
+    }
+    var authorIndex = this.find(".author-index");
+    if (this.filterAuthor) {
+      authorIndex.classList.remove("hidden");
+    } else {
+      authorIndex.classList.add("hidden");
     }
 });
 
