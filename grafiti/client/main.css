@@ -105,6 +105,7 @@ pre.pubcon {
   white-space: -moz-pre-wrap;
 }
 .pubcon {
+  font-size:smaller;
   display:inline-block;
   text-align:left;
   max-width:90%;
