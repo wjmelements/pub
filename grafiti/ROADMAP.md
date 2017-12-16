@@ -3,5 +3,6 @@
 * allpubs.eth integration
 * Donate page
 * SVG Support
+* MIDI Support
 * File Download
 * SEO
