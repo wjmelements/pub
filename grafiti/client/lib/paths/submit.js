@@ -35,7 +35,12 @@ function checkAccount(refreshId) {
     var hasWeb3 = (typeof web3 !== 'undefined') && (typeof web3.currentProvider.host === 'undefined');
     var hasAccount = hasWeb3 && web3 && web3.eth && web3.eth.accounts && (web3.eth.accounts.length > 0);
     console.log("hasWeb3:"+hasWeb3+",hasAccount:"+hasAccount);
-    document.getElementById("withoutweb3").hidden = hasWeb3;
+    var noweb3 = document.getElementById("withoutweb3");
+    if (!noweb3) {
+        clearInterval(refreshId);
+        return;
+    }
+    noweb3.hidden = hasWeb3;
     document.getElementById("withoutaccount").hidden = !hasWeb3 || hasAccount;
     if (hasAccount) {
         clearInterval(refreshId);
