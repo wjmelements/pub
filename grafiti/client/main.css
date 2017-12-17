@@ -82,16 +82,16 @@ ul.pages {
   display:table;
 }
 #submit-title {
-  display:inline-block;
+  display:block;
   width:90%;
   max-width:20em;
   padding:0.5em 1em;
   border-radius:0.5em;
-  margin:0px auto;
+  margin:auto;
 }
 #submit-content {
   display:block;
-  margin:0px auto;
+  margin:auto;
   width:90%;
   padding:1em;
   border-radius:0.5em;
