@@ -96,6 +96,12 @@
 
 <template name="submit">
   <div class="item">
+  <div id="withoutweb3" hidden>
+    {{> noweb3}}
+  </div>
+  <div id="withoutaccount" hidden>
+    {{> noaccount}}
+  </div>
   <input id= "submit-title" type="text" name="title" placeholder="Title"/>
   <br>
   <textarea cols="80" rows="4" id="submit-content" type="text" name="content" placeholder="Content"></textarea>
@@ -113,12 +119,6 @@
   </div>
   <div>
     <pre id="submit-preview" class="pubcon">{{preview}}<img id="submit-preview-img"/></pre>
-  </div>
-  <div id="withoutweb3" hidden>
-    {{> noweb3}}
-  </div>
-  <div id="withoutaccount" hidden>
-    {{> noaccount}}
   </div>
   <div id="onFailure" hidden>
     <p id="err-detail" class="error"></p>
@@ -303,7 +303,7 @@
 </template>
 
 <template name="noweb3">
-  <p class="error">Your browser does not yet support Ethereum. {{> errorHelp}}</p>
+  <p class="error">Your browser does not support Ethereum. {{> errorHelp}}</p>
 </template>
 
 <template name="noaccount">
