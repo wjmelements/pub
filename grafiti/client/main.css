@@ -81,6 +81,9 @@ ul.pages {
   padding:0px;
   display:table;
 }
+.preview {
+  margin-top:0.5em;
+}
 #submit-title {
   display:block;
   width:90%;
