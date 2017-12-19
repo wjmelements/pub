@@ -16,7 +16,7 @@ Gas = {
                         break;
                     case 2:
                     case 4:
-                        var gasPrice = j == 2 ? 0.000000002 : customGasPrice;
+                        var gasPrice = customGasPrice;
                         var etherCost = (gas * gasPrice).toFixed(9);
                         cell.innerHTML = etherCost;
                         row.cells[j+1].innerHTML = '$'+(etherCost * etherPriceUSD).toFixed(2);
