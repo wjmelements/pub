@@ -180,7 +180,7 @@ Template.submit.events({
             return;
         }
         var content=instance_content.value;
-        if (title.length == 0 || content.length == 0) {
+        if (title.length == 0 && content.length == 0) {
             console.log("Skipping empty submission");
             return;
         } 
