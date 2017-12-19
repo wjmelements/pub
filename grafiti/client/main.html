@@ -120,14 +120,14 @@
   <div id="withoutaccount" hidden>
     {{> noaccount}}
   </div>
-  <div id="legal">
-    {{> warning}}
-  </div>
   <div id="onFailure" hidden>
     <p id="err-detail" class="error"></p>
   </div>
   <div id="onSuccess" hidden>
   {{> success}}
+  </div>
+  <div id="legal">
+    {{> legal}}
   </div>
   <div>
     <h2 class="pubtit inline">Estimated Publication Cost</h2>
@@ -298,7 +298,7 @@
   </div>
 </template>
 
-<template name="warning">
+<template name="legal">
   <p class="error warning">Reminder: Do not break the law. You are only as anonymous as your public key.</p>
 </template>
 
