@@ -120,9 +120,8 @@ function executePublish(title, content, resultFn) {
     pub.publish(title, content, function (error, result) {
         if (error) {
             console.error(error);
-            return;
         }
-        resultFn(result);
+        resultFn(result, error);
     });
 }
 
@@ -130,9 +129,8 @@ function executePublishBytes(title, content, resultFn) {
     pub.publishBytes(title, content, function (error, result) {
         if (error) {
             console.error(error);
-            return;
         }
-        resultFn(result);
+        resultFn(result, error);
     });
 }
 

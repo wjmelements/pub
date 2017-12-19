@@ -67,6 +67,11 @@ Template.submit.onRendered(function () {
         onRendered.pop()();
     }
 });
+function showTransactionError(error) {
+    var failureNotice = document.getElementById('onFailure');
+    failureNotice.hidden = !error;
+    document.getElementById('err-detail').innerHTML=error;
+}
 
 function estimateGas(bytes) {
     var bytesInput = document.getElementsByClassName('custom-bytes')[0];
@@ -167,16 +172,21 @@ function onChangeFile() {
     onChange();
 }
 
+function onPublished(result, error) {
+    console.log("Transaction hash: " + result);
+    showTransactionError(error);
+    if (result) {
+        clearSubmission();
+        showTransactionHash(result);
+    }
+}
+
 Template.submit.events({
     'click #submit-submit'(event) {
         var title=instance_title.value;
         if (fileBytes != undefined) {
             console.log("publication size: " + fileBytes.length);
-            Pub.publishBytes(title, fileBytes, function(result) {
-                console.log("Transaction hash: " + result);
-                clearSubmission();
-                showTransactionHash(result);
-            });
+            Pub.publishBytes(title, fileBytes, onPublished);
             return;
         }
         var content=instance_content.value;
@@ -186,11 +196,7 @@ Template.submit.events({
         } 
         console.log("publication size: " + content.length);
         console.log(content);
-        Pub.publish(title, content, function(result) {
-            console.log("Transaction hash: " + result);
-            clearSubmission();
-            showTransactionHash(result);
-        });
+        Pub.publish(title, content, onPublished);
     },
     'keyup textarea#submit-content'(event) {
         onChange();
