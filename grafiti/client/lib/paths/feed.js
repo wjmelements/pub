@@ -7,7 +7,10 @@ function initFeed(render) {
             if (render) BlazeLayout.reset();
         }
         lastLoad.set(Math.max(0, Math.min(lastLoad.get(), lastIndex - 10)));
-        if (render) BlazeLayout.render('main', { main:"feed", index:lastIndex });
+        if (render) {
+            BlazeLayout.reset();
+            BlazeLayout.render('main', { main:"feed", index:lastIndex });
+        }
     });
 }
 function init(render) {
