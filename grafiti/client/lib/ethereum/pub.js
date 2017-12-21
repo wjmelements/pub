@@ -1,6 +1,5 @@
 window.addEventListener('load', function() {
     if (typeof web3 === 'undefined') {
-        //web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
         console.log("Using infura");
         web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/x6jRpmEj17uLQR1TuV1E"));
         Net.refreshNetwork();
