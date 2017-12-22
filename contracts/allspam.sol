@@ -1,4 +1,7 @@
 pragma solidity ^0.4.18;
+/**
+ * Spam marking for allspam.eth
+ */
 interface ERC20 {
     function totalSupply() public constant returns (uint supply);
     function balanceOf(address _owner) public constant returns (uint balance);
@@ -10,7 +13,6 @@ interface ERC20 {
     event Approval(address indexed _owner, address indexed _spender, uint _value);
 }
 contract AllSpam {
-    ERC20 public dai;
 
     mapping (uint256 => mapping (uint256 => bool)) public isSpam;
 
@@ -30,6 +32,7 @@ contract AllSpam {
         methods.push(PaymentMethod(
             ERC20(0x0), 500 szabo
         ));
+        membership[msg.sender] = Membership.BOARD;
     }
 
     modifier paysFee(uint256 _method) {
