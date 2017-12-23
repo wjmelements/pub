@@ -1,6 +1,11 @@
 pragma solidity ^0.4.18;
 /**
  * Spam marking for allspam.eth
+ * Users call markSpam to mark content in AllPubs as spam.
+ * Content marked as spam can be marked as not spam.
+ * Spamming AllSpam is discouraged by micropayments.
+ * Board members can add additional payment methods so long as they conform to ERC20, and update required payment values.
+ * Only board members can withdraw funds or appoint other board members.
  */
 interface ERC20 {
     function totalSupply() public constant returns (uint supply);
@@ -20,13 +25,19 @@ contract AllSpam {
         ERC20 token;
         uint256 amount;
     }
-    PaymentMethod[] methods;
+    PaymentMethod[] public methods;
+
+    function methodCount()
+    public view
+    returns (uint256) {
+        return methods.length;
+    }
 
     enum Membership {
         UNCONTACTED,
         BOARD
     }
-    mapping (address => Membership) membership;
+    mapping (address => Membership) public membership;
 
     function AllSpam() public {
         methods.push(PaymentMethod(
