@@ -104,7 +104,7 @@ Template.submit.helpers({
 function onChangeTitle() {
     var title = instance_title.value;
     if (title.length == 0) {
-        title = "Untitled";
+        title = "Preview";
     }
     instance_preview_title.innerHTML = title;
     estimateGas(instance_title.value.length + (fileBytes && fileBytes.length || instance_content.value.length));
