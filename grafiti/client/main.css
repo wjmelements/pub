@@ -90,6 +90,7 @@ ul.pages {
 }
 #submit-title {
   font-family:serif;
+  font-size:small;
   display:block;
   width:90%;
   max-width:20em;
@@ -99,6 +100,7 @@ ul.pages {
 }
 #submit-content {
   font-family:monospace;
+  font-size:small;
   display:block;
   width:90%;
   padding:1em;
