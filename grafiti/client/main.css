@@ -126,7 +126,9 @@ ul.pages {
 }
 #sign-name {
   padding:1em;
-  border-radius:2px;
+  border-style:none;
+  font-size:small;
+  font-family:serif;
 }
 pre.pubcon {
   white-space: pre-wrap;
