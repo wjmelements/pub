@@ -93,6 +93,8 @@ ul.pages {
   margin-top:0.5em;
 }
 #submit-title {
+  border-style:solid;
+  border-width:thin;
   font-family:serif;
   font-size:small;
   display:block;
