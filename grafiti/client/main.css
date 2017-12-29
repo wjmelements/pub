@@ -32,10 +32,15 @@ ul.nav {
 ul.nav li {
   display:inline;
 }
+ul.index {
+  border-style:solid none none none;
+  border-width:thin;
+  border-color:grey;
+}
 p.success {
   background-color:#6fbf97;
   padding:1em;
-  border-radius:0.5em;
+  border-radius:2px;
   color:white;
   display:inline-block;
 }
@@ -43,14 +48,14 @@ div .info {
   display:inline-block;
   background-color:#6fbf97;
   padding:1em;
-  border-radius:0.5em;
+  border-radius:2px;
   color:white;
 }
 p.error {
   display:inline-block;
   background-color:#ff5858;
   padding:1em;
-  border-radius:0.5em;
+  border-radius:2px;
   color:white;
 }
 p.error.warning {
@@ -69,11 +74,16 @@ ul.pages li {
   display:table-cell;
   text-align:center;
   background-color:#01bbe159;
-  border-style:solid;
   border-color:grey;
   border-radius:0;
   border-width:thin;
   width:33%;
+}
+ul.pages li.left {
+  border-style:none solid none none;
+}
+ul.pages li.right {
+  border-style:none none none solid;
 }
 ul.pages li.disabled {
   background-color:#90a4a959;
@@ -95,13 +105,14 @@ ul.pages {
 #submit-title {
   border-style:solid;
   border-width:thin;
+  border-color:grey;
   font-family:serif;
   font-size:small;
   display:block;
   width:90%;
   max-width:20em;
   padding:0.5em 1em;
-  border-radius:0.5em;
+  border-radius:2px;
   margin-bottom:1em;
 }
 #submit-content {
@@ -110,11 +121,12 @@ ul.pages {
   display:block;
   width:90%;
   padding:1em;
-  border-radius:0.5em;
+  border-radius:2px;
+  border-color:grey;
 }
 #sign-name {
   padding:1em;
-  border-radius:0.5em;
+  border-radius:2px;
 }
 pre.pubcon {
   white-space: pre-wrap;
@@ -130,8 +142,8 @@ pre.pubcon {
   background-color:#01bbe159;
   border-color:grey;
   border-width:thin;
-  border-style:solid;
-  border-radius:0.5em;
+  border-style:none;
+  border-radius:2px;
 }
 h3 {
   margin-bottom:0.5em;
@@ -153,6 +165,7 @@ table td,th {
   padding:1em;
   border-width:thin;
   border-style:solid;
+  border-color:grey;
   text-align:right;
 }
 table th {
@@ -177,14 +190,14 @@ table input {
 }
 .submit-btn {
   padding:1em;
-  border-radius:0.5em;
-  border-color:black;
+  border-radius:2px;
+  border-color:grey;
   background-color:white;
   border-width:thin;
   border-style:solid;
   cursor:pointer;
   font-size:small;
-  font-family:sans-serif;
+  font-family:serif;
 }
 .file-ctn {
   overflow: hidden;

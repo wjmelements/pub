@@ -25,27 +25,27 @@
 
 <template name="pages">
   <ul class="pages nav">
-    <li>
+    <li class="left">
       <a href="/">All</a>
     </li>
     <li>
       <a href="/submit">Post</a>
     </li>
-    <li>
+    <li class="right">
       <a href="/about">About</a>
     </li>
   </ul>
 </template>
 
 <template name="info">
-  <ul class="pages nav">
-    <li>
+  <ul class="pages nav index">
+    <li class="left">
       <a id="prev" href="/">Previous</a>
     </li>
     <li>
       <a id="rand" href="/random">Random</a>
     </li>
-    <li>
+    <li class="right">
       <a id="next" href="/">Next</a>
     </li>
   </ul>
@@ -108,7 +108,6 @@
   <label class="file-ctn submit-btn">Choose File<input id="submit-file" type="file"/></label>
   <button id="submit-reset" class="submit-btn">Reset</button>
   <button id="submit-submit" class="submit-btn" value="Submit">Submit</button>
-
   <div id="too-large" hidden>
     {{> toolarge}}
   </div>
