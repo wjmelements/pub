@@ -158,8 +158,12 @@ p.tagline {
   margin:1em auto;
   text-align:center;
 }
+#pubgas {
+  padding:0;
+}
 table {
   border-collapse:collapse;
+  border-style:hidden;
 }
 table td,th {
   padding:1em;
