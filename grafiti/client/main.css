@@ -70,6 +70,7 @@ ul.pages li {
   border-color:grey;
   border-radius:0;
   border-width:thin;
+  width:33%;
 }
 ul.pages li.disabled {
   background-color:#90a4a959;
