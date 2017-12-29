@@ -178,6 +178,7 @@ table th {
 table input {
   text-align:right;
   width:6em;
+  border-style:none;
 }
 #refresh img {
   margin-right:1em;
