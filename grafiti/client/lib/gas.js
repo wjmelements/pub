@@ -26,6 +26,25 @@ Gas = {
         }
     }
 }
+function setGasPrice(price) {
+    console.log('Suggesting gas price: ' + price);
+    document.getElementsByClassName('gas-price')[0].value = price;
+    Gas.onTableChange();
+
+}
+function fetchGasPrice() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('GET', 'https://ethgasstation.info/json/ethgasAPI.json', true /*asynchronous*/);
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.responseText) {
+            var response = JSON.parse(xmlHttp.responseText);
+            console.log(response);
+            setGasPrice(response.safeLow / 10);
+            xmlHttp.onreadystatechange = null;
+        }
+    };
+    xmlHttp.send(null);
+}
 Template.gas.onRendered(function() {
     if (typeof web3 !== "undefined") {
         web3.eth.getGasPrice(function(error, result){
@@ -33,10 +52,10 @@ Template.gas.onRendered(function() {
                 console.error(error);
                 return;
             }
-            document.getElementsByClassName('gas-price')[0].value = result.c[0] / 1e9;
-            Gas.onTableChange();
+            setGasPrice(result.c[0] / 1e9);
         });
     }
+    fetchGasPrice();
     Gas.onTableChange();
 });
 Template.gas.events({
