@@ -3,8 +3,8 @@
     "name": "standard-minifier-js",
     "version": "2.2.0"
   },
-  "totalMinifiedBytes": 746274,
-  "totalMinifiedGzipBytes": 218383,
+  "totalMinifiedBytes": 746656,
+  "totalMinifiedGzipBytes": 218490,
   "minifiedBytesByPackage": {
     "packages/meteor.js": 8650,
     "packages/meteor-base.js": 68,
@@ -561,13 +561,13 @@
     ],
     "packages/insecure.js": 62,
     "packages/mongo.js": [
-      9155,
+      9216,
       {
         "node_modules": {
           "meteor": {
             "mongo": {
               "local_collection_driver.js": 316,
-              "collection.js": 7803
+              "collection.js": 7864
             }
           }
         }
@@ -640,7 +640,7 @@
     "packages/autoupdate.js": 1998,
     "packages/global-imports.js": 1132,
     "app/app.js": [
-      37846,
+      38167,
       {
         "client": {
           "main.html": 72,
@@ -658,7 +658,7 @@
               "submit.js": 3477
             },
             "browser.js": 730,
-            "gas.js": 850,
+            "gas.js": 1171,
             "item.js": 3651,
             "media.js": 634,
             "router.js": 1079
