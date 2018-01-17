@@ -28,9 +28,11 @@ Gas = {
 }
 function setGasPrice(price) {
     console.log('Suggesting gas price: ' + price);
-    document.getElementsByClassName('gas-price')[0].value = price;
+    var gasPrice = document.getElementsByClassName('gas-price')[0];
+    if (gasPrice) {
+        gasPrice.value = price;
+    }
     Gas.onTableChange();
-
 }
 function fetchGasPrice() {
     var xmlHttp = new XMLHttpRequest();
