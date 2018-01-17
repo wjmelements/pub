@@ -3,8 +3,8 @@
     "name": "standard-minifier-js",
     "version": "2.2.0"
   },
-  "totalMinifiedBytes": 746656,
-  "totalMinifiedGzipBytes": 218490,
+  "totalMinifiedBytes": 746669,
+  "totalMinifiedGzipBytes": 218497,
   "minifiedBytesByPackage": {
     "packages/meteor.js": 8650,
     "packages/meteor-base.js": 68,
@@ -640,7 +640,7 @@
     "packages/autoupdate.js": 1998,
     "packages/global-imports.js": 1132,
     "app/app.js": [
-      38167,
+      38180,
       {
         "client": {
           "main.html": 72,
@@ -658,7 +658,7 @@
               "submit.js": 3477
             },
             "browser.js": 730,
-            "gas.js": 1171,
+            "gas.js": 1184,
             "item.js": 3651,
             "media.js": 634,
             "router.js": 1079
