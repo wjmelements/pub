@@ -1,5 +1,5 @@
 ## Planned Features
-* Post-banner redesign: colors
+* Custom css for author pages
 * allpubs.eth integration
 * Donate page
 * SVG Support
