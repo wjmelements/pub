@@ -1,6 +1,7 @@
 # Pub
 Pub is the archive of the Internet.
 Ethereum powers Pub, and Pub powers Grafiti, a Dapp hosted at <https://grafiti.online>.
+Grafiti is also hosted by Swarm and the Ethereum Name Service at <http://grafiti.eth.show>.
 
 ## Why Use Pub
 Pub is the cheapest censorship-resistant publication platform available.
