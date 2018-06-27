@@ -1,9 +1,9 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.23;
 
 interface PriorPub {
     function all(uint256 _index)
-    public view
-    returns (Pub.Publication);
+    external view
+    returns (address source, uint256 timestamp, string title, bytes body);
 }
 
 contract Pub {
@@ -23,7 +23,7 @@ contract Pub {
     PriorPub priorPub;
     uint256 lastPriorPubSyncIndex;
 
-    function Pub(PriorPub _priorPub) public {
+    constructor(PriorPub _priorPub) public {
         priorPub = _priorPub;
     }
 
@@ -62,8 +62,23 @@ contract Pub {
 
     function sync()
     external {
-        all.push(priorPub.all(lastPriorPubSyncIndex));
+        address source;
+        uint256 timestamp;
+        string memory title;
+        bytes memory body;
+        (source, timestamp, title, body) = priorPub.all(lastPriorPubSyncIndex);
+        all.push(Publication(source, timestamp, title, body));
         lastPriorPubSyncIndex++;
+    }
+
+    function syncPub(PriorPub priorSource, uint256 index)
+    external {
+        address source;
+        uint256 timestamp;
+        string memory title;
+        bytes memory body;
+        (source, timestamp, title, body) = priorSource.all(index);
+        all.push(Publication(source, timestamp, title, body));
     }
 
     function publicationCount(address _author)
