@@ -1,12 +1,13 @@
 var formerLastIndex;
 var lastLoad = new ReactiveVar(Infinity);
+var loadBatch = 14;
 function initFeed(render) {
     Pub.getLastIndex(function(lastIndex) {
         if (formerLastIndex != lastIndex) {
             formerLastIndex = lastIndex;
             if (render) BlazeLayout.reset();
         }
-        lastLoad.set(Math.max(0, Math.min(lastLoad.get(), lastIndex - 10)));
+        lastLoad.set(Math.max(0, Math.min(lastLoad.get(), lastIndex - loadBatch)));
         if (render) {
             BlazeLayout.reset();
             BlazeLayout.render('main', { main:"feed", index:lastIndex });
@@ -16,7 +17,7 @@ function initFeed(render) {
 function init(render) {
     if (this.filterAuthor.get()) {
         Pub.getAuthorPublicationCount(this.filterAuthor.get(), function(address, count) {
-            lastLoad.set(Math.max(0, Math.min(lastLoad.get(), count - 10)));
+            lastLoad.set(Math.max(0, Math.min(lastLoad.get(), count - loadBatch)));
         });
     } else {
         initFeed(render);
@@ -121,7 +122,7 @@ Template.feed.events({
 function onScroll() {
     var scrollingElement = document.scrollingElement;
     if (scrollingElement.scrollTop + scrollingElement.clientHeight >= scrollingElement.scrollHeight * .95) {
-        lastLoad.set(Math.max(0, lastLoad.get() - 10));
+        lastLoad.set(Math.max(0, lastLoad.get() - loadBatch));
     }
 }
 Template.feed.onCreated(function() {
