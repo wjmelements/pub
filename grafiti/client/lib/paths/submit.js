@@ -193,7 +193,7 @@ Template.submit.events({
         if (title.length == 0 && content.length == 0) {
             console.log("Skipping empty submission");
             return;
-        } 
+        }
         console.log("publication size: " + content.length);
         console.log(content);
         Pub.publish(title, content, onPublished);
