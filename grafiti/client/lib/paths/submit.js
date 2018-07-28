@@ -173,6 +173,7 @@ function onChangeFile() {
 }
 
 function onPublished(result, error) {
+    console.log("Transaction error: " + error);
     console.log("Transaction hash: " + result);
     showTransactionError(error);
     if (result) {
